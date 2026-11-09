@@ -11,11 +11,12 @@
 html,body{margin:0;background:#000;color:var(--g2);font-family:'Archivo',Arial,sans-serif;font-size:19px;line-height:1.4}
 .page{max-width:1200px;margin:0 auto;padding:48px 56px 0;border-bottom:12px solid var(--o)}
 strong{color:#fff}
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.logo{width:300px;max-width:55vw}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:nowrap}
+.logo{width:260px;max-width:55vw;flex:none;margin-top:6px}
 .eyebrow{display:flex;align-items:center;gap:14px;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:16px}
 .eyebrow:before{content:"";width:48px;height:6px;background:var(--o);flex:none}
-h1{font-weight:900;text-transform:uppercase;font-stretch:120%;line-height:.96;font-size:68px;color:#fff;margin:20px 0 10px}
+h1{font-weight:900;text-transform:uppercase;font-stretch:120%;line-height:.96;font-size:62px;color:#fff;margin:20px 0 10px}
+.top>div{flex:1;min-width:0}
 h1 span{color:var(--o)}
 .lead{font-size:22px;color:var(--g1);margin:0 0 26px}
 .switch{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
@@ -131,11 +132,11 @@ h2 span{color:var(--o)}
  <div class="top">
   <div>
    <div class="eyebrow">Capacitación · Instalación</div>
-   <h1>Instala el lector<br><span>VTAP</span> paso a paso</h1>
+   <h1>Instala el lector <span>VTAP</span></h1>
   </div>
   <img class="logo" alt="STATION" src="data:image/png;base64,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">
  </div>
- <p class="lead">Elige qué vas a instalar y avanza con las flechas.</p>
+ <p class="lead">Paso a paso. Elige qué vas a instalar y avanza con las flechas.</p>
 
  <div class="switch">
   <button class="sbtn" data-s="door" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14M2 20h20M13 20V4l-7 2v14"/><path d="M10 12h.01"/></svg>Puerta · electroimán</button>
