@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capacitación · Lector VTAP en sucursales Station</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root{--o:#E45604;--card:#141414;--alt:#0B0B0B;--bd:#2A2A2A;--g1:#D6D6D6;--g2:#C9C9C9;--g3:#9A9A9A;--grn:#3DDC84;--red:#FF4D4D;--blu:#2F6BFF}
+*{box-sizing:border-box}
+html,body{margin:0;background:#000;color:var(--g2);font-family:'Archivo',Arial,sans-serif;font-size:19px;line-height:1.4}
+.page{max-width:1200px;margin:0 auto;padding:48px 56px 0;border-bottom:12px solid var(--o)}
+strong{color:#fff}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.logo{width:300px;max-width:55vw}
+.eyebrow{display:flex;align-items:center;gap:14px;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:16px}
+.eyebrow:before{content:"";width:48px;height:6px;background:var(--o);flex:none}
+h1{font-weight:900;text-transform:uppercase;font-stretch:120%;line-height:.96;font-size:68px;color:#fff;margin:20px 0 10px}
+h1 span{color:var(--o)}
+.lead{font-size:22px;color:var(--g1);margin:0 0 26px}
+.switch{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.sbtn{font:inherit;font-weight:900;text-transform:uppercase;letter-spacing:.05em;font-size:17px;border-radius:999px;padding:13px 26px;cursor:pointer;border:2px solid var(--o);background:transparent;color:#fff;display:flex;gap:10px;align-items:center}
+.sbtn svg{width:22px;height:22px;stroke:currentColor}
+.sbtn[aria-pressed=true]{background:var(--o);color:#000}
+/* stage */
+.stage{background:var(--alt);border:1px solid var(--bd);border-radius:26px;overflow:hidden}
+.view{position:relative}
+.view svg{display:block;width:100%;height:auto;font-family:'Archivo',Arial,sans-serif}
+.view .layer{display:none}
+.view .layer.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+.zoomtag{position:absolute;top:18px;left:18px;background:var(--o);color:#000;font-weight:900;font-size:15px;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:7px 14px;display:none}
+.zoomtag.on{display:block}
+.info{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;padding:24px 28px;border-top:1px solid var(--bd);background:#000}
+.bign{width:78px;height:78px;border-radius:50%;background:var(--o);color:#000;font-weight:900;font-size:36px;display:grid;place-items:center}
+.st{font-weight:900;text-transform:uppercase;font-stretch:118%;color:#fff;font-size:34px;line-height:1;margin:2px 0 8px}
+.sd{font-size:21px;color:var(--g1);margin:0}
+.sd b{color:var(--o)}
+.ojo{display:inline-flex;gap:10px;align-items:center;margin:12px 10px 0 0;border:2px solid var(--o);border-radius:999px;padding:7px 16px;font-size:17px;font-weight:700;color:#fff}
+.ojo svg{width:20px;height:20px;stroke:var(--o);flex:none}
+.nav{display:flex;align-items:center;gap:14px;padding:18px 28px 24px;background:#000;flex-wrap:wrap}
+.arrow{font:inherit;font-weight:900;font-size:16px;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:12px 22px;cursor:pointer;border:2px solid var(--o);background:var(--o);color:#000}
+.arrow.prev{background:transparent;color:#fff;border-color:var(--bd)}
+.arrow:disabled{opacity:.3;cursor:default}
+.dots{display:flex;gap:8px;flex:1;justify-content:center;flex-wrap:wrap}
+.dot{width:40px;height:40px;border-radius:50%;border:2px solid var(--bd);background:var(--card);color:var(--g3);font:inherit;font-weight:900;font-size:16px;cursor:pointer}
+.dot.done{border-color:var(--o);color:var(--o)}
+.dot.cur{background:var(--o);border-color:var(--o);color:#000}
+/* svg helpers */
+.dim{opacity:.16;transition:opacity .3s}
+.hl{opacity:1;transition:opacity .3s}
+.w{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:drawin 1.4s ease forwards}
+@keyframes drawin{to{stroke-dashoffset:0}}
+.flow{stroke-dasharray:12 9;animation:flow .7s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-21}}
+.pulse{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+/* nga mock */
+.nga{padding:46px 40px 40px;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;min-height:520px}
+.form{background:#17181a;border:1px solid #2c2d30;border-radius:18px;padding:26px 28px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.form h4{margin:0;color:#fff;font-size:21px}
+.form .s{color:#8d8f94;font-size:15px;margin:2px 0 18px}
+.fl{color:#e8e8e8;font-weight:700;font-size:16px;margin:14px 0 6px;display:flex;gap:8px;align-items:center}
+.fl i{font-style:normal;color:#8d8f94;font-weight:400}
+.fi{background:#222326;border-radius:10px;padding:11px 14px;font-size:17px;color:#fff;border:2px solid transparent;font-family:ui-monospace,Menlo,monospace}
+.fi.k{border-color:var(--o)}
+.fi.x{color:#5c5e63}
+.ngaside .t{font-weight:900;text-transform:uppercase;color:#fff;font-size:26px;font-stretch:115%;margin:0 0 14px}
+.ngaside ol{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.ngaside li{display:flex;gap:14px;align-items:flex-start;font-size:19px}
+.n{width:36px;height:36px;border-radius:50%;background:var(--o);color:#000;font-weight:900;display:grid;place-items:center;flex:none;font-size:17px}
+.path{color:var(--g3);font-size:16px;margin-bottom:14px}
+.path b{color:var(--o)}
+/* kit + band */
+h2{font-weight:900;text-transform:uppercase;font-stretch:120%;color:#fff;font-size:34px;margin:44px 0 16px}
+h2 span{color:var(--o)}
+.kit{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.kc{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px 10px 14px;text-align:center}
+.kc svg{width:100%;height:84px;display:block}
+.kc b{display:block;color:#fff;font-size:16px;margin-top:8px;line-height:1.15}
+.kc span{display:block;color:var(--g3);font-size:15px}
+.band{background:var(--o);color:#000;border-radius:22px;padding:22px 28px;font-weight:800;font-size:22px;line-height:1.25;margin-top:30px}
+.band strong{color:#000;font-weight:900}
+.foot{margin-top:34px;padding:24px 0 30px;border-top:1px solid var(--bd);color:var(--g3);font-size:17px}
+.foot b{color:#fff}
+@media (max-width:900px){
+ .page{padding:28px 16px 0}
+ h1{font-size:42px}
+ .st{font-size:26px}
+ .info{grid-template-columns:1fr}
+ .bign{width:56px;height:56px;font-size:26px}
+ .nga{grid-template-columns:1fr;padding:24px 16px}
+ .kit{grid-template-columns:repeat(3,1fr)}
+ .dot{width:34px;height:34px}
+}
+@media (max-width:700px){
+ .page{padding:18px 14px 0}
+ .top{flex-direction:column-reverse;gap:14px}
+ .logo{width:170px}
+ h1{font-size:36px;margin:14px 0 8px}
+ .eyebrow{font-size:13px;letter-spacing:.16em}
+ .eyebrow:before{width:32px;height:5px}
+ .lead{font-size:17px;margin-bottom:16px}
+ .switch{gap:8px}
+ .sbtn{flex:1;justify-content:center;font-size:14px;padding:12px 8px;gap:6px}
+ .stage{border-radius:18px;margin:0 -4px}
+ .zoomtag{top:10px;left:10px;font-size:12px;padding:5px 10px}
+ .info{grid-template-columns:auto 1fr;gap:12px;padding:16px 14px}
+ .bign{width:46px;height:46px;font-size:22px}
+ .st{font-size:22px;margin:4px 0 6px}
+ .sd{font-size:17px}
+ .ojo{font-size:15px;border-radius:14px;align-items:flex-start;padding:8px 12px;margin:10px 0 0;display:flex}
+ .nav{position:sticky;bottom:0;z-index:4;padding:10px 10px;gap:6px;border-top:1px solid var(--bd);flex-wrap:nowrap}
+ .dots{gap:3px;flex-wrap:nowrap}
+ .dot{width:14px;height:14px;font-size:0;padding:0;border-width:2px}
+ .dots{gap:5px}
+ .arrow{padding:12px 14px;font-size:15px;flex:none}
+ .nga{grid-template-columns:1fr;padding:18px 14px;gap:18px;min-height:0}
+ .form{padding:18px}
+ .ngaside .t{font-size:21px}
+ .ngaside li{font-size:16px}
+ h2{font-size:26px;margin:32px 0 12px}
+ .kit{grid-template-columns:repeat(2,1fr)}
+ .band{font-size:18px;padding:18px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+ <div class="top">
+  <div>
+   <div class="eyebrow">Capacitación · Instalación</div>
+   <h1>Instala el lector<br><span>VTAP</span> paso a paso</h1>
+  </div>
+  <img class="logo" alt="STATION" src="data:image/png;base64,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">
+ </div>
+ <p class="lead">Elige qué vas a instalar y avanza con las flechas.</p>
+
+ <div class="switch">
+  <button class="sbtn" data-s="door" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14M2 20h20M13 20V4l-7 2v14"/><path d="M10 12h.01"/></svg>Puerta · electroimán</button>
+  <button class="sbtn" data-s="turn" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="2"/><path d="M12 9 5 5M12 9l7-4M12 9v8M6 21h12"/></svg>Torniquete</button>
+ </div>
+
+ <div class="stage">
+  <div class="view">
+   <span class="zoomtag" id="ztag">Zoom a la placa</span>
+   <svg class="layer" id="scene" viewBox="0 0 900 580"></svg>
+   <svg class="layer" id="zoom" viewBox="0 0 900 580"></svg>
+   <div class="layer" id="nga"></div>
+  </div>
+  <div class="info">
+   <div class="bign" id="bn">1</div>
+   <div><div class="st" id="st"></div><p class="sd" id="sd"></p><div id="ojo"></div></div>
+  </div>
+  <div class="nav">
+   <button class="arrow prev" id="prev">← Atrás</button>
+   <div class="dots" id="dots"></div>
+   <button class="arrow" id="next">Siguiente →</button>
+  </div>
+ </div>
+
+ <h2>Lo que <span>necesitas</span></h2>
+ <div class="kit" id="kit"></div>
+
+ <div class="band">Todo se conecta <strong>sin energía</strong>. Si hay que tocar <strong>110 V</strong>, lo hace un <strong>electricista</strong>.</div>
+
+ <div class="foot"><b>Soporte Técnico · Station 24 Fitness</b><br>¿Dudas? Reporta en el grupo <b>STATION-Soporte Técnico</b></div>
+</div>
+
+<script>
+(function(){
+const O='#E45604',NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+function el(t,a,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;}
+function T(p,x,y,s,o={}){return p.appendChild(el('text',Object.assign({x,y,fill:'#D6D6D6','font-size':16,'font-weight':800},o),s));}
+function G(p,k){return p.appendChild(el('g',k?{'data-k':k}:{}));}
+
+/* ---------- reusable drawings ---------- */
+function reader(p,x,y,s=1){ // x,y top-left; 46x80 at s=1
+  const g=el('g',{transform:`translate(${x},${y}) scale(${s})`});
+  g.appendChild(el('rect',{x:0,y:0,width:46,height:80,rx:9,fill:'#050505',stroke:'#3a3a3a','stroke-width':2}));
+  g.appendChild(el('rect',{x:14,y:5,width:18,height:4,rx:2,fill:'#333',class:'led'}));
+  g.appendChild(el('rect',{x:5,y:17,width:36,height:50,rx:6,fill:'#0d0d0d'}));
+  g.appendChild(el('circle',{cx:23,cy:36,r:11,fill:'none',stroke:'#e8e8e8','stroke-width':1.6}));
+  ['M20 32a5 5 0 0 1 0 8','M23 30a8 8 0 0 1 0 12','M26 28a11 11 0 0 1 0 16'].forEach(d=>g.appendChild(el('path',{d,fill:'none',stroke:'#e8e8e8','stroke-width':1.3,'stroke-linecap':'round',transform:'translate(-3,0)'})));
+  g.appendChild(el('text',{x:23,y:60,'text-anchor':'middle','font-size':8,'font-weight':800,fill:'#3fb8d8','letter-spacing':'.08em'},'VTAP'));
+  p.appendChild(g);return g;
+}
+function board(p,x,y,s=1){ // 120x70 mini board
+  const g=el('g',{transform:`translate(${x},${y}) scale(${s})`});
+  g.appendChild(el('rect',{x:-10,y:22,width:20,height:24,rx:5,fill:'#1e1e1e'}));
+  g.appendChild(el('rect',{x:110,y:22,width:20,height:24,rx:5,fill:'#1e1e1e'}));
+  g.appendChild(el('rect',{x:0,y:6,width:120,height:60,rx:10,fill:'#1e1e1e',stroke:'#000'}));
+  g.appendChild(el('polygon',{points:'10,14 110,14 114,18 114,56 110,60 10,60 6,56 6,18',fill:'#cfd2d4'}));
+  [[14,10],[36,26],[70,26]].forEach(([a,w])=>g.appendChild(el('rect',{x:a,y:0,width:w,height:9,rx:1.5,fill:'#2fa34a'})));
+  g.appendChild(el('rect',{x:14,y:62,width:16,height:7,rx:1.5,fill:'#f2f2f2'}));
+  g.appendChild(el('rect',{x:46,y:62,width:16,height:7,rx:1.5,fill:'#2fa34a'}));
+  g.appendChild(el('rect',{x:80,y:62,width:12,height:7,rx:1.5,fill:'#111'}));
+  g.appendChild(el('text',{x:60,y:36,'text-anchor':'middle','font-size':9,'font-weight':900,fill:'#2b7bb9'},'VTAP100 PRO'));
+  g.appendChild(el('text',{x:60,y:47,'text-anchor':'middle','font-size':7,'font-weight':800,fill:'#2b7bb9'},'I/O EXPANSION'));
+  p.appendChild(g);return g;
+}
+function psu(p,x,y,lbl){
+  const g=el('g',{});
+  g.appendChild(el('rect',{x,y,width:70,height:60,rx:8,fill:'#2b2b2b',stroke:'#444'}));
+  g.appendChild(el('rect',{x:x+8,y:y+8,width:54,height:10,rx:2,fill:'#3a3a3a'}));
+  g.appendChild(el('text',{x:x+35,y:y+44,'text-anchor':'middle','font-size':17,'font-weight':900,fill:'#fff'},'12 V'));
+  p.appendChild(g);
+  T(p,x+35,y+82,lbl,{'text-anchor':'middle',fill:'#9A9A9A','font-size':15});
+  return g;
+}
+function sw(p,x,y){
+  const g=el('g',{});
+  g.appendChild(el('rect',{x,y,width:180,height:36,rx:6,fill:'#1c1c1c',stroke:'#444'}));
+  for(let i=0;i<8;i++)g.appendChild(el('rect',{x:x+12+i*20,y:y+12,width:14,height:12,rx:1,fill:'#000',stroke:i===2?O:'#555'}));
+  p.appendChild(g);T(p,x+90,y+60,'SWITCH PoE',{'text-anchor':'middle',fill:'#9A9A9A','font-size':15});return g;
+}
+function phone(p,x,y){
+  const g=el('g',{transform:`translate(${x},${y})`,class:'phone'});
+  g.appendChild(el('rect',{x:0,y:0,width:40,height:74,rx:8,fill:'#1d1d1d',stroke:'#9a9a9a','stroke-width':2}));
+  g.appendChild(el('rect',{x:5,y:12,width:30,height:20,rx:3,fill:O}));
+  g.appendChild(el('rect',{x:5,y:36,width:30,height:4,rx:2,fill:'#555'}));
+  g.appendChild(el('rect',{x:5,y:44,width:20,height:4,rx:2,fill:'#555'}));
+  p.appendChild(g);return g;
+}
+const wire=(p,d,c,w=4,cls='')=>p.appendChild(el('path',{d,class:'w '+cls,stroke:c,'stroke-width':w}));
+
+/* ---------- SCENES ---------- */
+function sceneDoor(s){
+  s.appendChild(el('rect',{x:0,y:0,width:900,height:580,fill:'#0e0e0e'}));
+  const zin=G(s,'zone');
+  zin.appendChild(el('rect',{x:612,y:0,width:288,height:540,fill:'#140c07'}));
+  T(zin,24,40,'EXTERIOR · LADO DE SOCIOS',{fill:'#9A9A9A','letter-spacing':'.14em','font-size':15});
+  T(zin,630,40,'INTERIOR · LADO SEGURO',{fill:O,'letter-spacing':'.14em','font-size':15});
+  s.appendChild(el('rect',{x:0,y:540,width:900,height:40,fill:'#1b1b1b'}));
+  // door
+  const d=G(s,'door');
+  d.appendChild(el('rect',{x:425,y:155,width:170,height:385,fill:'none',stroke:'#3a3a3a','stroke-width':10}));
+  d.appendChild(el('rect',{x:430,y:160,width:160,height:380,fill:'#161616'}));
+  d.appendChild(el('rect',{x:448,y:205,width:124,height:235,fill:'#1b2228'}));
+  d.appendChild(el('rect',{x:574,y:330,width:7,height:70,rx:3,fill:'#888'}));
+  // maglock
+  const m=G(s,'mag');
+  m.appendChild(el('rect',{x:440,y:161,width:140,height:20,rx:3,fill:'#7a7a7a',stroke:'#000'}));
+  m.appendChild(el('rect',{x:452,y:183,width:116,height:8,rx:2,fill:'#5a5a5a'}));
+  m.appendChild(el('circle',{cx:568,cy:171,r:3.5,fill:O,class:'magled'}));
+  T(m,510,146,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff'});
+  const ms=T(m,510,222,'',{'text-anchor':'middle','font-size':16,'font-weight':900,class:'magst'});
+  // cables first
+  const ce=G(s,'exp'); wire(ce,'M388,290 V118 H700 V252','#D6D6D6',4);
+  T(ce,420,110,'cable EXP · máx. 3 m',{fill:'#9A9A9A','font-size':15});
+  const cn=G(s,'net'); wire(cn,'M388,370 V560 H740 V476','#5ba4ff',4);
+  T(cn,410,555,'cable de red (PoE)',{fill:'#5ba4ff','font-size':15});
+  const cm=G(s,'magw'); wire(cm,'M690,252 V171 H580',O,5);
+  const cl=G(s,'psuLw'); wire(cl,'M790,190 H740 V252',O,4);
+  const cb=G(s,'psuBw'); wire(cb,'M790,288 H771','#D6D6D6',4);
+  // devices
+  const r=G(s,'reader'); reader(r,365,290); T(r,355,262,'LECTOR',{'text-anchor':'end',fill:'#fff'}); T(r,355,282,'junto al marco',{'text-anchor':'end',fill:'#9A9A9A','font-size':15});
+  const b=G(s,'board'); board(b,650,250); T(b,710,345,'PLACA EXP1',{'text-anchor':'middle',fill:'#fff'});
+  const pl=G(s,'psuL'); psu(pl,790,160,'IMÁN');
+  const pb=G(s,'psuB'); psu(pb,790,258,'PLACA');
+  const w=G(s,'sw'); sw(w,650,440);
+  const ph=G(s,'phone'); phone(ph,130,300);
+  return {ms};
+}
+function sceneTurn(s){
+  s.appendChild(el('rect',{x:0,y:0,width:900,height:580,fill:'#0e0e0e'}));
+  s.appendChild(el('rect',{x:0,y:540,width:900,height:40,fill:'#1b1b1b'}));
+  const z=G(s,'zone');
+  T(z,24,40,'TORNIQUETE · CUERPO COMPLETO O TRÍPODE',{fill:'#9A9A9A','letter-spacing':'.12em','font-size':15});
+  // turnstile body
+  const t=G(s,'door');
+  t.appendChild(el('rect',{x:330,y:332,width:232,height:208,rx:10,fill:'#1a1a1a',stroke:'#3a3a3a','stroke-width':2}));
+  t.appendChild(el('rect',{x:318,y:318,width:256,height:18,rx:6,fill:'#2c2c2c'}));
+  const arms=el('g',{transform:'translate(640,380)'});
+  const ar=el('g',{class:'arms'});
+  [0,120,240].forEach(a=>ar.appendChild(el('line',{x1:0,y1:0,x2:0,y2:-74,stroke:'#cfcfcf','stroke-width':9,'stroke-linecap':'round',transform:`rotate(${a+60})`})));
+  arms.appendChild(ar);arms.appendChild(el('circle',{r:16,fill:'#888',stroke:'#000'}));
+  t.appendChild(arms);
+  T(t,724,330,'PASO →',{fill:'#9A9A9A','font-size':15,'letter-spacing':'.12em'});
+  // cutaway
+  const c=G(s,'zone');
+  c.appendChild(el('rect',{x:344,y:350,width:204,height:178,rx:8,fill:'#120a05',stroke:O,'stroke-dasharray':'7 6','stroke-width':2}));
+  T(c,446,371,'DENTRO DEL GABINETE',{'text-anchor':'middle',fill:O,'font-size':14,'letter-spacing':'.08em'});
+  // cables
+  const cn=G(s,'net'); wire(cn,'M130,476 V560 H554 V346 H462 V318','#5ba4ff',4);
+  T(cn,170,555,'cable de red (PoE)',{fill:'#5ba4ff','font-size':15});
+  const ce=G(s,'exp'); wire(ce,'M438,318 V386','#D6D6D6',4);
+  const cm=G(s,'magw'); wire(cm,'M392,446 V466',O,5);
+  const cb=G(s,'psuBw'); wire(cb,'M466,416 H452','#D6D6D6',4);
+  // devices
+  const b=G(s,'board'); board(b,360,382,0.75);
+  const pb=G(s,'psuB');
+  pb.appendChild(el('rect',{x:466,y:388,width:62,height:54,rx:7,fill:'#2b2b2b',stroke:'#444'}));
+  T(pb,497,414,'12 V',{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});
+  T(pb,497,433,'PLACA',{'text-anchor':'middle',fill:'#9A9A9A','font-size':12,'font-weight':800});
+  const ct=G(s,'mag');
+  ct.appendChild(el('rect',{x:356,y:466,width:180,height:50,rx:6,fill:'#0f3d22',stroke:'#2fa34a'}));
+  T(ct,446,488,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':14});
+  T(ct,446,506,'TORNIQUETE',{'text-anchor':'middle',fill:'#fff','font-size':14});
+  const r=G(s,'reader'); reader(r,415,238); T(r,360,262,'LECTOR',{'text-anchor':'end',fill:'#fff'});
+  const w=G(s,'sw'); sw(w,40,440);
+  const lb=G(s,'board'); T(lb,256,404,'PLACA EXP1',{'text-anchor':'end',fill:'#fff'}); lb.appendChild(el('path',{d:'M262,400 H356',stroke:'#9A9A9A','stroke-width':1.5,fill:'none'}));
+  const lc=G(s,'mag'); T(lc,700,495,'TARJETA TORNIQUETE',{fill:'#fff'});T(lc,700,515,'su propia energía 110 V',{fill:'#9A9A9A','font-size':15}); lc.appendChild(el('path',{d:'M538,491 H694',stroke:'#9A9A9A','stroke-width':1.5,fill:'none'}));
+  const ph=G(s,'phone'); phone(ph,250,200);
+  const ms=T(G(s,'mag'),724,362,'',{'font-size':16,'font-weight':900,class:'magst'});
+  return {ms};
+}
+
+/* ---------- ZOOM BOARD ---------- */
+function zoomBoard(z,stage,scen,mob){
+  z.setAttribute('viewBox',mob?'0 0 420 700':'0 0 900 580');
+  z.appendChild(el('rect',{x:0,y:0,width:mob?420:900,height:mob?700:580,fill:'#0b0b0b'}));
+  const gb=el('g',mob?{transform:'translate(-143,150) scale(.78)'}:{});z.appendChild(gb);
+  const pins={in:[300,324],o2:[372,396,420,444,468],o1:[516,540,564,588,612]};
+  // body
+  gb.appendChild(el('rect',{x:196,y:258,width:84,height:76,rx:16,fill:'#1e1e1e'}));
+  gb.appendChild(el('rect',{x:620,y:258,width:84,height:76,rx:16,fill:'#1e1e1e'}));
+  gb.appendChild(el('circle',{cx:222,cy:296,r:11,fill:'#000'}));gb.appendChild(el('circle',{cx:678,cy:296,r:11,fill:'#000'}));
+  gb.appendChild(el('rect',{x:250,y:186,width:400,height:218,rx:30,fill:'#1e1e1e',stroke:'#000','stroke-width':2}));
+  gb.appendChild(el('polygon',{points:'292,206 608,206 630,228 630,364 608,386 292,386 270,364 270,228',fill:'#cfd2d4'}));
+  T(gb,450,300,'VTAP100 PRO',{'text-anchor':'middle',fill:'#2b7bb9','font-size':24,'font-weight':800});
+  T(gb,450,324,'I/O EXPANSION BOARD',{'text-anchor':'middle',fill:'#2b7bb9','font-size':19,'font-weight':800});
+  T(gb,450,344,'VTAP100-PRO-EXP1',{'text-anchor':'middle',fill:'#2b7bb9','font-size':14,'font-weight':700});
+  const lbl=(x,y,s)=>T(gb,x,y,s,{'text-anchor':'middle',fill:'#333','font-size':14,'font-weight':800});
+  lbl(312,228,'INPUT');lbl(420,228,'OUTPUT 2');lbl(564,228,'OUTPUT 1');
+  lbl(330,374,'VTAP PRO');lbl(466,374,'LEDs');lbl(580,374,'POWER');
+  // terminal blocks top
+  const block=(xs,y,col,h=26)=>{gb.appendChild(el('rect',{x:xs[0]-12,y,width:(xs.length)*24,height:h,rx:3,fill:col,stroke:'#0a5a24'}));xs.forEach(x=>{gb.appendChild(el('rect',{x:x-9,y:y+4,width:18,height:18,rx:2,fill:'#1d7a37'}));gb.appendChild(el('circle',{cx:x,cy:y+13,r:6,fill:'#bfc5c9'}));gb.appendChild(el('path',{d:`M${x-4},${y+13}H${x+4}`,stroke:'#666','stroke-width':2}));});};
+  block(pins.in,162,'#2fa34a');block(pins.o2,162,'#2fa34a');block(pins.o1,162,'#2fa34a');
+  // pin names on label
+  const names={in:['0V','DI'],o2:['0V','NO','COM','NC','+12'],o1:['0V','NO','COM','NC','+12']};
+  for(const k in pins) pins[k].forEach((x,i)=>gb.appendChild(el('text',{x:x+4,y:274,'font-size':12,'font-weight':800,fill:'#444',transform:`rotate(-90 ${x+4} 274)`},names[k][i])));
+  // bottom connectors
+  gb.appendChild(el('rect',{x:300,y:398,width:60,height:24,rx:3,fill:'#f2f2f2',stroke:'#bbb'}));
+  gb.appendChild(el('rect',{x:430,y:398,width:72,height:26,rx:3,fill:'#2fa34a'}));
+  [442,466,490].forEach(x=>gb.appendChild(el('circle',{cx:x,cy:411,r:6,fill:'#bfc5c9'})));
+  gb.appendChild(el('rect',{x:556,y:398,width:48,height:26,rx:3,fill:'#111',stroke:'#333'}));
+  [568,592].forEach(x=>gb.appendChild(el('circle',{cx:x,cy:411,r:6,fill:'#bfc5c9'})));
+  gb.appendChild(el('text',{x:568,y:356,'text-anchor':'middle','font-size':12,'font-weight':800,fill:'#444'},'0V'));
+  gb.appendChild(el('text',{x:592,y:356,'text-anchor':'middle','font-size':12,'font-weight':800,fill:'#444'},'+12'));
+
+  const chip=(x,y,s,anchor='middle')=>{const w=s.length*11+18;const xx=anchor==='end'?x-w:anchor==='start'?x:x-w/2;z.appendChild(el('rect',{x:xx,y:y-19,width:w,height:28,rx:8,fill:O}));T(z,xx+w/2,y,s,{'text-anchor':'middle',fill:'#000','font-size':16,'font-weight':900});};
+  const dev=(x,y,w,h,t1,t2)=>{z.appendChild(el('rect',{x,y,width:w,height:h,rx:12,fill:'#141414',stroke:O,'stroke-width':2}));T(z,x+w/2,y+28,t1,{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});if(t2)T(z,x+w/2,y+48,t2,{'text-anchor':'middle',fill:'#9A9A9A','font-size':15});};
+  const cls=n=>stage===n?'draw':'';
+  const done=n=>stage>=n;
+  if(mob){
+    if(done(4)){
+      wire(z,'M114,480 V560',stage===4?'#fff':'#9a9a9a',7,cls(4));
+      ['#e53935','#000','#1e88e5','#43a047','#fdd835','#fff'].forEach((c,k)=>z.appendChild(el('rect',{x:94+k*7,y:477,width:5,height:9,fill:c})));
+      dev(10,560,170,64,'LECTOR','cable EXP');
+      if(stage===4) T(z,192,600,'máx. 3 m',{fill:O,'font-size':18,'font-weight':900});
+    }
+    if(done(5)){
+      const c5=stage===5?O:'#8a4a22';
+      if(scen==='door'){
+        wire(z,'M297,276 V180 H200',c5,5,cls(5)); wire(z,'M316,276 V100',c5,5,cls(5));
+        dev(10,150,190,62,'FUENTE IMÁN','borne +'); dev(240,36,170,64,'ELECTROIMÁN','borne +');
+        if(stage===5){chip(290,252,'COM','end');chip(323,252,'NC','start');
+          T(z,210,664,'El − del electroimán va directo',{'text-anchor':'middle',fill:'#fff','font-size':16});
+          T(z,210,686,'al − de su fuente.',{'text-anchor':'middle',fill:'#fff','font-size':16});}
+      } else {
+        wire(z,'M278,276 V180 H200',c5,5,cls(5)); wire(z,'M297,276 V100',c5,5,cls(5));
+        dev(10,150,190,62,'TORNIQUETE','entrada apertura'); dev(240,36,170,64,'TORNIQUETE','común');
+        if(stage===5){chip(271,252,'NO','end');chip(304,252,'COM','start');
+          T(z,210,664,'Busca la entrada de «contacto seco»',{'text-anchor':'middle',fill:'#fff','font-size':16});
+          T(z,210,686,'de la tarjeta del torniquete.',{'text-anchor':'middle',fill:'#fff','font-size':16});}
+      }
+    }
+    if(done(6)){
+      wire(z,'M319,481 V590',stage===6?O:'#8a4a22',5,cls(6));
+      wire(z,'M300,481 V590',stage===6?'#D6D6D6':'#666',5,cls(6));
+      dev(250,590,160,64,'FUENTE 12 V','solo placa');
+      if(stage===6){chip(327,548,'+12V','start');chip(292,548,'0V','end');}
+    }
+    return;
+  }
+  // 4: EXP cable
+  if(done(4)){
+    wire(z,'M330,422 V480 H160',stage===4?'#fff':'#9a9a9a',7,cls(4));
+    ['#e53935','#000','#1e88e5','#43a047','#fdd835','#fff'].forEach((c,i)=>z.appendChild(el('rect',{x:304+i*9,y:420,width:6,height:12,fill:c})));
+    dev(30,446,128,70,'LECTOR','cable EXP');
+    if(stage===4) T(z,250,512,'máx. 3 m',{fill:O,'font-size':18,'font-weight':900});
+  }
+  // 5: relay
+  if(done(5)){
+    const c5=stage===5?O:'#8a4a22';
+    if(scen==='door'){
+      wire(z,'M564,162 V110 H180',c5,5,cls(5));
+      wire(z,'M588,162 V70 H720',c5,5,cls(5));
+      dev(30,80,150,62,'FUENTE IMÁN','borne +');
+      dev(720,40,150,62,'ELECTROIMÁN','borne +');
+      if(stage===5){chip(556,140,'COM','end');chip(596,140,'NC','start');
+        T(z,450,560,'El − del electroimán va directo al − de su fuente.',{'text-anchor':'middle',fill:'#fff','font-size':17});}
+    } else {
+      wire(z,'M540,162 V110 H180',c5,5,cls(5));
+      wire(z,'M564,162 V66 H180',c5,5,cls(5));
+      dev(20,40,160,52,'TORNIQUETE','común');
+      dev(20,96,160,52,'TORNIQUETE','entrada apertura');
+      if(stage===5){chip(532,140,'NO','end');chip(572,140,'COM','start');
+        T(z,450,560,'Busca la entrada de «contacto seco» de la tarjeta del torniquete.',{'text-anchor':'middle',fill:'#fff','font-size':17});}
+    }
+  }
+  // 6: power
+  if(done(6)){
+    wire(z,'M592,424 V470 H740',stage===6?O:'#8a4a22',5,cls(6));
+    wire(z,'M568,424 V500 H740',stage===6?'#D6D6D6':'#666',5,cls(6));
+    dev(740,440,140,84,'FUENTE 12 V','solo placa');
+    if(stage===6){chip(600,462,'+12V In','start');chip(560,500,'0V','end');}
+  }
+}
+
+
+/* ---------- MOBILE SCENES (portrait 420x700) ---------- */
+const MQ=window.matchMedia('(max-width:700px)');
+let MOB=MQ.matches;
+function sceneDoorM(s){
+  s.appendChild(el('rect',{x:0,y:0,width:420,height:700,fill:'#0e0e0e'}));
+  const zin=G(s,'zone');
+  zin.appendChild(el('rect',{x:0,y:0,width:420,height:222,fill:'#140c07'}));
+  T(zin,16,30,'INTERIOR · LADO SEGURO',{fill:O,'letter-spacing':'.12em','font-size':15});
+  T(zin,16,250,'EXTERIOR · SOCIOS',{fill:'#9A9A9A','letter-spacing':'.12em','font-size':15});
+  s.appendChild(el('rect',{x:0,y:600,width:420,height:22,fill:'#1b1b1b'}));
+  const d=G(s,'door');
+  d.appendChild(el('rect',{x:150,y:262,width:170,height:338,fill:'none',stroke:'#3a3a3a','stroke-width':10}));
+  d.appendChild(el('rect',{x:155,y:267,width:160,height:333,fill:'#161616'}));
+  d.appendChild(el('rect',{x:172,y:360,width:126,height:190,fill:'#1b2228'}));
+  d.appendChild(el('rect',{x:298,y:430,width:6,height:60,rx:3,fill:'#888'}));
+  const m=G(s,'mag');
+  m.appendChild(el('rect',{x:165,y:268,width:140,height:18,rx:3,fill:'#7a7a7a',stroke:'#000'}));
+  m.appendChild(el('rect',{x:176,y:288,width:118,height:7,rx:2,fill:'#5a5a5a'}));
+  m.appendChild(el('circle',{cx:294,cy:277,r:3.5,fill:O}));
+  T(m,235,322,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':17});
+  const ms=T(m,235,348,'',{'text-anchor':'middle','font-size':18,'font-weight':900});
+  const ce=G(s,'exp'); wire(ce,'M118,330 V228 H172 V193','#D6D6D6',4);
+  const cn=G(s,'net'); wire(cn,'M104,410 V648 H120','#5ba4ff',4);
+  T(cn,96,590,'cable de red (PoE)',{fill:'#5ba4ff','font-size':14,transform:'rotate(-90 96 590)'});
+  const cm=G(s,'magw'); wire(cm,'M262,193 V268',O,5);
+  const cl=G(s,'psuLw'); wire(cl,'M86,154 H140',O,4);
+  const cb=G(s,'psuBw'); wire(cb,'M334,154 H280','#D6D6D6',4);
+  const r=G(s,'reader'); reader(r,80,330);
+  T(r,112,300,'LECTOR',{'text-anchor':'end',fill:'#fff','font-size':17});
+  T(r,112,318,'junto al marco',{'text-anchor':'end',fill:'#9A9A9A','font-size':14});
+  const b=G(s,'board'); board(b,150,124); T(b,205,214,'PLACA EXP1',{'text-anchor':'middle',fill:'#fff','font-size':15});
+  const pl=G(s,'psuL'); psu(pl,16,124,'IMÁN');
+  const pb=G(s,'psuB'); psu(pb,334,124,'PLACA');
+  const w=G(s,'sw'); sw(w,120,630);
+  const ph=G(s,'phone'); phone(ph,-50,338);
+  return {ms};
+}
+function sceneTurnM(s){
+  s.appendChild(el('rect',{x:0,y:0,width:420,height:700,fill:'#0e0e0e'}));
+  s.appendChild(el('rect',{x:0,y:560,width:420,height:30,fill:'#1b1b1b'}));
+  const z=G(s,'zone');
+  T(z,16,30,'TORNIQUETE · CUERPO COMPLETO O TRÍPODE',{fill:'#9A9A9A','letter-spacing':'.06em','font-size':13});
+  const t=G(s,'door');
+  t.appendChild(el('rect',{x:100,y:300,width:220,height:260,rx:10,fill:'#1a1a1a',stroke:'#3a3a3a','stroke-width':2}));
+  t.appendChild(el('rect',{x:88,y:288,width:244,height:16,rx:6,fill:'#2c2c2c'}));
+  const arms=el('g',{transform:'translate(372,246)'});const ar=el('g',{class:'arms'});
+  [0,120,240].forEach(a=>ar.appendChild(el('line',{x1:0,y1:0,x2:0,y2:-50,stroke:'#cfcfcf','stroke-width':8,'stroke-linecap':'round',transform:`rotate(${a+60})`})));
+  arms.appendChild(ar);arms.appendChild(el('circle',{r:12,fill:'#888',stroke:'#000'}));t.appendChild(arms);
+  const c=G(s,'zone');
+  c.appendChild(el('rect',{x:112,y:318,width:196,height:232,rx:8,fill:'#120a05',stroke:O,'stroke-dasharray':'7 6','stroke-width':2}));
+  T(c,210,340,'DENTRO DEL GABINETE',{'text-anchor':'middle',fill:O,'font-size':13,'letter-spacing':'.06em'});
+  const cn=G(s,'net'); wire(cn,'M226,290 V312 H312 V600 H210 V630','#5ba4ff',4);
+  T(cn,336,600,'cable de red (PoE)',{fill:'#5ba4ff','font-size':14,transform:'rotate(-90 336 600)'});
+  const ce=G(s,'exp'); wire(ce,'M206,290 V358','#D6D6D6',4);
+  const cm=G(s,'magw'); wire(cm,'M190,428 V462',O,5);
+  const cb=G(s,'psuBw'); wire(cb,'M266,396 H260','#D6D6D6',4);
+  const b=G(s,'board'); board(b,130,358);
+  T(b,94,392,'PLACA',{'text-anchor':'end',fill:'#fff','font-size':15});T(b,94,411,'EXP1',{'text-anchor':'end',fill:'#fff','font-size':15});
+  const pb=G(s,'psuB');
+  pb.appendChild(el('rect',{x:266,y:372,width:40,height:48,rx:6,fill:'#2b2b2b',stroke:'#444'}));
+  T(pb,286,400,'12 V',{'text-anchor':'middle',fill:'#fff','font-size':13,'font-weight':900});
+  const ct=G(s,'mag');
+  ct.appendChild(el('rect',{x:130,y:462,width:160,height:70,rx:6,fill:'#0f3d22',stroke:'#2fa34a'}));
+  T(ct,210,492,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':14});
+  T(ct,210,512,'TORNIQUETE',{'text-anchor':'middle',fill:'#fff','font-size':14});
+  T(ct,210,582,'energía propia 110 V',{'text-anchor':'middle',fill:'#9A9A9A','font-size':14});
+  const r=G(s,'reader'); reader(r,187,210); T(r,210,198,'LECTOR',{'text-anchor':'middle',fill:'#fff','font-size':17});
+  const w=G(s,'sw'); sw(w,120,630);
+  const ph=G(s,'phone'); phone(ph,60,214);
+  const ms=T(G(s,'mag'),300,150,'',{'text-anchor':'middle','font-size':18,'font-weight':900});
+  return {ms};
+}
+
+/* ---------- STEPS ---------- */
+const OJO_I='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>';
+const STEPS={
+ door:[
+  {v:'scene',hl:['zone','reader','board','psuL','psuB','mag','door'],t:'Ubica las piezas',d:'<b>Lector:</b> en el exterior, pegado al marco de la puerta. <b>Placa y fuentes:</b> en el interior, donde nadie las alcance.',o:'Si alguien arranca el lector, la puerta no se abre.'},
+  {v:'scene',hl:['reader','door'],t:'Monta el lector',d:'En el <b>exterior</b> (lado de socios), <b>junto al marco</b> de la puerta, en <b>vertical</b>.',o:['Para pared: gira placa y tapa 180° con la ventana de luz arriba.']},
+  {v:'scene',hl:['board','psuL','psuB','zone'],t:'Monta placa y fuentes',d:'Adentro. La placa se fija con sus <b>2 tornillos</b>.',o:'Todo se monta y se conecta sin energía.'},
+  {v:'zoom',z:4,t:'Une placa y lector',d:'Conecta el <b>cable EXP</b> al conector blanco «VTAP PRO». Máximo <b>3 m</b>.',o:'Primero atornilla el lector y después conecta el cable.'},
+  {v:'zoom',z:5,t:'Conecta el electroimán',d:'<b>COM</b> → + de la fuente del imán. <b>NC</b> → + del electroimán.',o:'NC, no NO: así la puerta queda cerrada en reposo.'},
+  {v:'zoom',z:6,t:'Da energía a la placa',d:'Borne <b>POWER</b>: +12V In y 0V. Usa su propia fuente de 12 V.',o:'El lector no alimenta la placa.'},
+  {v:'scene',hl:['net','sw','reader'],t:'Conecta el cable de red',d:'Al final. El cable de red (PoE) le da datos y energía al lector.',o:['La red debe dar IP automática (DHCP).','Sin firewall ni filtro que bloquee la nube de Dot Origin.','Espera: luz roja unos segundos → azul fijo.'],led:true},
+  {v:'nga',t:'Da de alta en NGA',d:'En <b>NGA › Lectores › Nuevo lector</b>.',name:'Hidalgo - Puerta',turn:false},
+  {v:'scene',hl:['reader','phone','mag','door','magw','psuLw'],t:'Prueba',d:'Acerca el teléfono a unos <b>2.5 cm</b>. La puerta se libera unos segundos.',o:'Prueba también un pase no válido: no debe abrir.',test:true}
+ ],
+ turn:[
+  {v:'scene',hl:['zone','reader','board','psuB','mag','door'],t:'Ubica las piezas',d:'<b>Lector:</b> sobre el torniquete. <b>Placa y fuente:</b> dentro del gabinete.',o:'Si alguien arranca el lector, el torniquete no se libera.'},
+  {v:'scene',hl:['reader','door'],t:'Monta el lector',d:'Sobre el torniquete, del lado por donde entran los socios.'},
+  {v:'scene',hl:['board','psuB','zone'],t:'Monta placa y fuente',d:'Dentro del gabinete. La placa se fija con sus <b>2 tornillos</b>.',o:'Todo se monta y se conecta sin energía.'},
+  {v:'zoom',z:4,t:'Une placa y lector',d:'Conecta el <b>cable EXP</b> al conector blanco «VTAP PRO». Máximo <b>3 m</b>.',o:'Primero atornilla el lector y después conecta el cable.'},
+  {v:'zoom',z:5,t:'Conecta el torniquete',d:'<b>COM</b> → común del torniquete. <b>NO</b> → entrada de apertura.',o:'NO, no NC: el relé solo da un pulso.'},
+  {v:'zoom',z:6,t:'Da energía a la placa',d:'Borne <b>POWER</b>: +12V In y 0V. Usa su propia fuente de 12 V.',o:'El lector no alimenta la placa.'},
+  {v:'scene',hl:['net','sw','reader'],t:'Conecta el cable de red',d:'Al final. El cable de red (PoE) le da datos y energía al lector.',o:['La red debe dar IP automática (DHCP).','Sin firewall ni filtro que bloquee la nube de Dot Origin.','Espera: luz roja unos segundos → azul fijo.'],led:true},
+  {v:'nga',t:'Da de alta en NGA',d:'En <b>NGA › Lectores › Nuevo lector</b>.',name:'Hidalgo - Torniquete',turn:true},
+  {v:'scene',hl:['reader','phone','door','mag','magw'],t:'Prueba',d:'Acerca el teléfono a unos <b>2.5 cm</b>. El torniquete libera un giro.',o:'Prueba también un pase no válido: no debe girar.',test:true}
+ ]
+};
+
+let scen='door',i=0,timers=[];
+const clear=()=>{timers.forEach(clearTimeout);timers=[];};
+function ngaView(s){
+  return `<div class="nga"><div class="form"><div class="path">NGA › Lectores › <b>Nuevo lector</b></div><h4>Nuevo Lector</h4><div class="s">Administra los lectores NFC de tus clientes.</div>
+  <div class="fl">Número de Serie</div><div class="fi k">AJ00217…</div>
+  <div class="fl">Nombre</div><div class="fi k">${s.name}</div>
+  <div class="fl">Tiempo de espera entre escaneos <i>(opcional)</i></div><div class="fi x">vacío = valor de la cuenta</div>
+  <div class="fl">Sucursal (ID EVO)</div><div class="fi k">ID de la sucursal</div>
+  <div class="fl">Torniquete (ID EVO) <i>(opcional)</i></div><div class="fi ${s.turn?'k':'x'}">${s.turn?'ID del torniquete':'vacío en puerta'}</div></div>
+  <div class="ngaside"><div class="t">Llena 4 datos</div><ol>
+   <li><span class="n">1</span><span><strong>Número de serie</strong> del lector. Empieza con <strong style="color:var(--o)">AJ</strong>.</span></li>
+   <li><span class="n">2</span><span><strong>Nombre:</strong> «Sucursal - ${s.turn?'Torniquete':'Puerta'}».</span></li>
+   <li><span class="n">3</span><span><strong>Sucursal:</strong> su ID en EVO.</span></li>
+   <li><span class="n">4</span><span>${s.turn?'<strong>Torniquete:</strong> su ID en EVO, para registrar los accesos.':'<strong>Torniquete:</strong> déjalo vacío en el lector de puerta.'}</span></li>
+  </ol></div></div>`;
+}
+function render(){
+  clear();
+  const S=STEPS[scen],s=S[i];
+  ['scene','zoom','nga'].forEach(v=>$(v).classList.toggle('on',v===s.v));
+  $('ztag').classList.toggle('on',s.v==='zoom');
+  $('bn').textContent=i+1;$('st').textContent=s.t;$('sd').innerHTML=s.d;
+  $('ojo').innerHTML=s.o?(Array.isArray(s.o)?s.o:[s.o]).map(x=>`<span class="ojo">${OJO_I}${x}</span>`).join(''):'';
+  if(s.v==='scene'){
+    const sc=$('scene');sc.innerHTML='';
+    sc.setAttribute('viewBox',MOB?'0 0 420 700':'0 0 900 580');
+    const ref=(scen==='door'?(MOB?sceneDoorM:sceneDoor):(MOB?sceneTurnM:sceneTurn))(sc);
+    sc.querySelectorAll('[data-k]').forEach(g=>g.setAttribute('class',s.hl.includes(g.dataset.k)?'hl':'dim'));
+    if(!s.test) sc.querySelectorAll('[data-k=phone]').forEach(g=>g.style.display='none');
+    if(scen==='door'){ref.ms.textContent='CERRADA';ref.ms.setAttribute('fill',O);}
+    if(s.led){const L=sc.querySelectorAll('.led');const set=c=>L.forEach(l=>{l.setAttribute('fill',c);l.style.filter=`drop-shadow(0 0 4px ${c})`;});
+      const loop=()=>{set('#FF4D4D');timers.push(setTimeout(()=>set('#2F6BFF'),1800));timers.push(setTimeout(loop,4200));};loop();}
+    if(s.test) testAnim(sc,ref);
+  }
+  if(s.v==='zoom'){const z=$('zoom');z.innerHTML='';zoomBoard(z,s.z,scen,MOB);}
+  if(s.v==='nga') $('nga').innerHTML=ngaView(s);
+  $('dots').innerHTML=S.map((_,k)=>`<button class="dot ${k===i?'cur':k<i?'done':''}" data-k="${k}">${k+1}</button>`).join('');
+  $('dots').querySelectorAll('.dot').forEach(d=>d.onclick=()=>{i=+d.dataset.k;render();});
+  $('prev').disabled=i===0;$('next').textContent=i===S.length-1?(MOB?'↺ Inicio':'Volver a empezar ↺'):(MOB?'Sig. →':'Siguiente →');$('prev').textContent=MOB?'←':'← Atrás';
+}
+function testAnim(sc,ref){
+  const ph=sc.querySelector('.phone');const L=sc.querySelectorAll('.led');
+  const base=MOB?(scen==='door'?[-50,338]:[60,214]):(scen==='door'?[130,300]:[250,190]);const tgt=MOB?(scen==='door'?[34,338]:[142,214]):(scen==='door'?[318,298]:[370,240]);
+  const run=()=>{
+    ph.setAttribute('transform',`translate(${base})`);L.forEach(l=>l.setAttribute('fill','#2F6BFF'));
+    if(scen==='door'){ref.ms.textContent='CERRADA';ref.ms.setAttribute('fill',O);sc.querySelectorAll('[data-k=magw] path,[data-k=psuLw] path').forEach(p=>{p.setAttribute('stroke',O);p.classList.add('flow');});}
+    else{ref.ms.textContent='';}
+    const t0=performance.now();
+    (function mv(t){const k=Math.min(1,(t-t0)/900);ph.setAttribute('transform',`translate(${base[0]+(tgt[0]-base[0])*k},${base[1]+(tgt[1]-base[1])*k})`);if(k<1)requestAnimationFrame(mv);})(t0);
+    timers.push(setTimeout(()=>{L.forEach(l=>l.setAttribute('fill','#3DDC84'));
+      if(scen==='door'){ref.ms.textContent='LIBRE';ref.ms.setAttribute('fill','#3DDC84');sc.querySelectorAll('[data-k=magw] path,[data-k=psuLw] path').forEach(p=>{p.setAttribute('stroke','#3a3a3a');p.classList.remove('flow');});}
+      else{ref.ms.textContent='GIRO LIBERADO';ref.ms.setAttribute('fill','#3DDC84');const ar=sc.querySelector('.arms');const t1=performance.now();
+        sc.querySelectorAll('[data-k=magw] path').forEach(p=>p.setAttribute('stroke','#3DDC84'));
+        (function rot(t){const k=Math.min(1,(t-t1)/1100);ar.setAttribute('transform',`rotate(${120*k})`);if(k<1)requestAnimationFrame(rot);})(t1);}
+    },1300));
+    timers.push(setTimeout(run,4800));
+  };
+  run();
+}
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{scen=b.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.setAttribute('aria-pressed',x===b));render();});
+$('prev').onclick=()=>{if(i>0){i--;render();}};
+$('next').onclick=()=>{i=i<STEPS[scen].length-1?i+1:0;render();};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('next').click();if(e.key==='ArrowLeft')$('prev').click();});
+render();
+MQ.addEventListener('change',e=>{MOB=e.matches;render();});
+(function(){let x0=null;const v=document.querySelector('.view');
+ v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+ v.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;
+  if(Math.abs(dx)>50){ if(dx<0) $('next').click(); else $('prev').click(); }},{passive:true});})();
+
+/* ---------- KIT ---------- */
+const kit=[
+ ['Lector VTAP','VTAP100 PRO PoE',s=>reader(s,57,4,1)],
+ ['Placa EXP1','con cable EXP',s=>board(s,20,8,1)],
+ ['Cable de red','con PoE',s=>{s.appendChild(el('path',{d:'M10,60 C50,10 110,90 150,30',stroke:'#5ba4ff','stroke-width':6,fill:'none'}));s.appendChild(el('rect',{x:140,y:18,width:22,height:22,rx:3,fill:'#cfd2d4'}));}],
+ ['Fuente 12 V','para la placa',s=>{s.appendChild(el('rect',{x:45,y:12,width:70,height:60,rx:8,fill:'#2b2b2b',stroke:'#444'}));s.appendChild(el('text',{x:80,y:52,'text-anchor':'middle','font-size':18,'font-weight':900,fill:'#fff'},'12 V'));}],
+ ['Electroimán','con su fuente',s=>{s.appendChild(el('rect',{x:15,y:28,width:130,height:22,rx:3,fill:'#7a7a7a'}));s.appendChild(el('rect',{x:27,y:54,width:106,height:8,rx:2,fill:'#5a5a5a'}));}],
+ ['Torniquete','entrada de contacto seco',s=>{s.appendChild(el('rect',{x:30,y:30,width:70,height:50,rx:6,fill:'#1a1a1a',stroke:'#3a3a3a','stroke-width':2}));const g=el('g',{transform:'translate(118,46)'});[60,180,300].forEach(a=>g.appendChild(el('line',{x1:0,y1:0,x2:0,y2:-30,stroke:'#cfcfcf','stroke-width':5,'stroke-linecap':'round',transform:`rotate(${a})`})));g.appendChild(el('circle',{r:7,fill:'#888'}));s.appendChild(g);}]
+];
+$('kit').innerHTML=kit.map((k,n)=>`<div class="kc"><svg viewBox="0 0 160 90" id="k${n}"></svg><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
+kit.forEach((k,n)=>k[2]($('k'+n)));
+})();
+</script>
+</body>
+</html>
