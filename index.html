@@ -29,6 +29,13 @@ h1 span{color:var(--o)}
 .tbtn[aria-pressed=true]{background:#fff;color:#000;border-color:#fff}
 .secnote{color:var(--g3);font-size:17px;margin:4px 0 16px}
 .view svg.narrow{max-width:600px;margin:0 auto}
+.conn{padding:26px 26px 22px;display:grid;gap:10px}
+.cr{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px 16px;font-size:17px;color:var(--g1)}
+.cr b{color:#fff}
+.cr .n{width:32px;height:32px;border-radius:50%;background:var(--o);color:#000;font-weight:900;display:grid;place-items:center;font-size:15px}
+.cr .ca{color:var(--o);font-weight:900;font-size:22px}
+.cr .cx{grid-column:2/-1;color:var(--o);font-size:15px;font-weight:700;margin-top:-4px}
+.swc{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:middle;margin:0 2px 2px 4px;border:1px solid #555}
 /* stage */
 .stage{background:var(--alt);border:1px solid var(--bd);border-radius:26px;overflow:hidden}
 .view{position:relative}
@@ -131,6 +138,13 @@ h2 span{color:var(--o)}
  h2{font-size:26px;margin:32px 0 12px}
  .kit{grid-template-columns:repeat(2,1fr)}
  .dk{display:none}
+ .conn{padding:14px 10px}
+ .cr{grid-template-columns:auto 1fr;gap:6px 10px;font-size:15px;padding:10px 12px}
+ .cr .ca{display:none}
+ .cr .cf+.ca+.cf{grid-column:2}
+ .cr .cf:nth-of-type(2)::before{content:"→ ";color:var(--o);font-weight:900}
+ .cr .cx{grid-column:2}
+
  .secnote{font-size:15px}
  .tbtn{flex:1;justify-content:center}
  .band{font-size:18px;padding:18px}
@@ -159,13 +173,19 @@ h2 span{color:var(--o)}
  </div>
  <p class="secnote" id="secnote"></p>
 
- <div class="stage">
+ <section id="kitwrap">
+  <h2 style="margin-top:6px">Lo que <span>necesitas</span></h2>
+  <div class="kit" id="kit"></div>
+ </section>
+
+ <div class="stage" style="margin-top:22px">
   <div class="view">
    <span class="zoomtag" id="ztag">Zoom a la placa</span>
    <svg class="layer" id="scene" viewBox="0 0 900 580"></svg>
    <svg class="layer" id="zoom" viewBox="0 0 900 580"></svg>
    <div class="layer" id="nga"></div>
    <svg class="layer narrow" id="wire" viewBox="0 0 480 560"></svg>
+   <div class="layer" id="list"></div>
   </div>
   <div class="info">
    <div class="bign" id="bn">1</div>
@@ -178,12 +198,9 @@ h2 span{color:var(--o)}
   </div>
  </div>
 
- <h2>Lo que <span>necesitas</span></h2>
- <div class="kit" id="kit"></div>
-
  <div class="band">Todo se conecta <strong>sin energía</strong>. Si hay que tocar <strong>110 V</strong>, lo hace un <strong>electricista</strong>.</div>
 
- <div class="foot"><b>Soporte Técnico · Station 24 Fitness</b><br>¿Dudas? Reporta en el grupo <b>STATION-Soporte Técnico</b></div>
+ <div class="foot"><b>Soporte Técnico · Station 24 Fitness</b><br>¿Dudas? Reporta al <b>personal de TI de Station</b></div>
 </div>
 
 <script>
@@ -502,49 +519,60 @@ function sceneCombo(s){
 /* ---------- WIRING DIAGRAMS (botones) ---------- */
 function wbox(p,x,y,w,h,t1,t2,o={}){
   p.appendChild(el('rect',{x,y,width:w,height:h,rx:12,fill:'#141414',stroke:o.hot?O:'#3a3a3a','stroke-width':o.hot?2.5:1.5,'stroke-dasharray':o.dash?'7 6':'none'}));
-  T(p,x+w/2,y+h/2-4,t1,{'text-anchor':'middle',fill:'#fff','font-size':17,'font-weight':900});
-  if(t2)T(p,x+w/2,y+h/2+19,t2,{'text-anchor':'middle',fill:'#9A9A9A','font-size':14,'font-weight':700});
+  const ty=o.top?y+26:y+h/2-4;
+  T(p,x+w/2,ty,t1,{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});
+  if(t2)T(p,x+w/2,ty+19,t2,{'text-anchor':'middle',fill:'#9A9A9A','font-size':13,'font-weight':700});
 }
+function tchip(p,x,y,s,anchor='start'){const w=s.length*9+14;const xx=anchor==='end'?x-w:x;p.appendChild(el('rect',{x:xx,y:y-11,width:w,height:22,rx:6,fill:O}));T(p,xx+w/2,y+5,s,{'text-anchor':'middle',fill:'#000','font-size':14,'font-weight':900});}
 function wireDoor(s,o){
-  const alt=o.alt,H=alt?490:370;
+  const alt=o.alt,H=alt?500:370;
   s.setAttribute('viewBox',`0 0 480 ${H}`);
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
   const r=G(s,'ret'); wire(r,'M450,78 H466 V20 H14 V78 H30','#8a8a8a',3);
-  T(r,240,13,'− directo a la fuente',{'text-anchor':'middle',fill:'#8a8a8a','font-size':13});
+  T(r,240,13,'− del imán directo al − de la fuente',{'text-anchor':'middle',fill:'#8a8a8a','font-size':13});
+  tchip(r,28,60,'−','end');tchip(r,452,60,'−');
   const lp=G(s,'loop');
-  wire(lp,'M125,116 V180',O,5,'flow');
-  if(alt){wire(lp,'M125,256 V310',O,5,'flow');wire(lp,'M220,348 H260',O,5,'flow');}
-  else wire(lp,'M220,218 H260',O,5,'flow');
-  wire(lp,`M355,${alt?310:180} V116`,O,5,'flow');
-  T(lp,137,154,'+',{fill:O,'font-size':20,'font-weight':900});
-  wbox(G(s,'psu'),30,40,190,76,'FUENTE 12 V','solo electroimán');
-  wbox(G(s,'mag'),260,40,190,76,'ELECTROIMÁN','+ diodo 1N4007',{hot:true});
-  wbox(G(s,'exit'),30,180,190,76,'BOTÓN SALIDA','interior · C y NC',{hot:true});
-  if(alt) wbox(G(s,'rec'),30,310,190,76,'BOTÓN RECEPCIÓN','C y NC · cable largo',{hot:true,dash:true});
-  wbox(G(s,'board'),260,alt?310:180,190,76,'PLACA EXP1','OUTPUT 1 · COM → NC');
-  const ny=alt?420:300,c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
+  wire(lp,'M115,116 V180',O,5,'flow');
+  if(alt){wire(lp,'M115,256 V310',O,5,'flow');wire(lp,'M200,348 H280',O,5,'flow');}
+  else wire(lp,'M200,218 H280',O,5,'flow');
+  wire(lp,`M365,${alt?310:180} V116`,O,5,'flow');
+  tchip(lp,123,138,'+');tchip(lp,123,168,'C');
+  if(alt){tchip(lp,123,274,'NC');tchip(lp,123,300,'C');tchip(lp,204,366,'NC');tchip(lp,276,330,'COM','end');tchip(lp,373,298,'NC');}
+  else{tchip(lp,204,236,'NC');tchip(lp,276,200,'COM','end');tchip(lp,373,168,'NC');}
+  tchip(lp,373,138,'+');
+  wbox(G(s,'psu'),30,40,170,76,'FUENTE 12 V','solo electroimán');
+  wbox(G(s,'mag'),280,40,170,76,'ELECTROIMÁN','diodo si no lo trae',{hot:true});
+  wbox(G(s,'exit'),30,180,170,76,'BOTÓN SALIDA','interior',{hot:true});
+  if(alt) wbox(G(s,'rec'),30,310,170,76,'BOTÓN RECEP.','en recepción',{hot:true,dash:true});
+  wbox(G(s,'board'),280,alt?310:180,170,76,'PLACA EXP1','OUTPUT 1');
+  const ny=alt?430:300,c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
   T(s,240,ny,'Todo en serie: si cualquier contacto se abre,',c);
   T(s,240,ny+22,'la puerta se libera.',c);
   if(alt)T(s,240,ny+50,'Sin temporizador: libera solo mientras se presiona.',Object.assign({},c,{fill:O}));
 }
 function wireTurn(s,o){
-  const H=560;s.setAttribute('viewBox',`0 0 480 ${H}`);
+  const H=610;s.setAttribute('viewBox',`0 0 480 ${H}`);
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
-  const bw=G(s,'boardw'); wire(bw,'M220,145 H285',O,5,'flow');
-  if(o.alt){const rw=G(s,'recw'); wire(rw,'M220,280 H250 V145','#f2f2f2',4); rw.appendChild(el('circle',{cx:250,cy:145,r:6,fill:'#f2f2f2'}));}
-  const ew=G(s,'exitw'); wire(ew,'M220,415 H285','#f2f2f2',4);
+  const WH='#f2f2f2';
+  const dot=(p,x,y,c)=>p.appendChild(el('circle',{cx:x,cy:y,r:5,fill:c}));
+  const bw=G(s,'boardw'); wire(bw,'M190,160 H295',WH,4); wire(bw,'M190,195 H295',O,5,'flow');
+  if(o.alt){const rw=G(s,'recw');
+    wire(rw,'M190,305 H250 V203 A8,8 0 0 0 250,187 V160',WH,4); dot(rw,250,160,WH);
+    wire(rw,'M190,335 H270 V195',O,5,'flow'); dot(rw,270,195,O);}
+  const ew=G(s,'exitw'); wire(ew,'M190,460 H295',WH,4); wire(ew,'M190,495 H295',O,5,'flow');
   const t=G(s,'turn');
-  t.appendChild(el('rect',{x:270,y:30,width:190,height:450,rx:14,fill:'none',stroke:'#5a5a5a','stroke-width':2,'stroke-dasharray':'7 6'}));
-  T(t,365,58,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
-  T(t,365,78,'TORNIQUETE',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
-  wbox(t,285,110,160,70,'ENTRADA','contacto seco',{hot:true});
-  wbox(t,285,380,160,70,'SALIDA','contacto seco',{hot:true});
-  wbox(G(s,'board'),20,110,200,70,'PLACA EXP1',`${o.out} · COM–NO`);
-  if(o.alt) wbox(G(s,'rec'),20,245,200,70,'BOTÓN RECEPCIÓN','C y NO',{hot:true,dash:true});
-  wbox(G(s,'exit'),20,380,200,70,'BOTÓN SALIDA','interior · C y NO',{hot:true});
+  t.appendChild(el('rect',{x:280,y:40,width:180,height:500,rx:14,fill:'none',stroke:'#5a5a5a','stroke-width':2,'stroke-dasharray':'7 6'}));
+  T(t,370,64,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
+  T(t,370,84,'TORNIQUETE',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
+  const term=(p,x,y,w,h,title,rows,side)=>{wbox(p,x,y,w,h,title,'',{hot:true,top:true});rows.forEach(([lbl,ry,c])=>{const ex=side==='left'?x:x+w;dot(p,ex,ry,c);T(p,side==='left'?x+14:x+w-14,ry+5,lbl,{'text-anchor':side==='left'?'start':'end',fill:'#D6D6D6','font-size':14,'font-weight':700});});};
+  term(t,295,100,150,120,'ENTRADA',[['común',160,WH],['apertura',195,O]],'left');
+  term(t,295,400,150,120,'SALIDA',[['común',460,WH],['apertura',495,O]],'left');
+  const bg=G(s,'board'); term(bg,20,100,170,120,'PLACA EXP1',[['COM',160,WH],['NO',195,O]],'right'); T(bg,105,145,o.out,{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  if(o.alt){const rg=G(s,'rec'); term(rg,20,250,170,110,'BOTÓN RECEP.',[['C · blanco',305,WH],['NO · rojo',335,O]],'right');}
+  const eg=G(s,'exit'); term(eg,20,400,170,120,'BOTÓN SALIDA',[['C',460,WH],['NO',495,O]],'right'); T(eg,105,445,'interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
   const c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
-  const n=o.alt?['Recepción en paralelo con el relé:','cualquiera de los dos libera la entrada.']:['El botón de salida va directo:','no pasa por la placa.'];
-  T(s,240,515,n[0],c);T(s,240,538,n[1],c);
+  const n=o.alt?['Dos cables en cada borne de ENTRADA:','el de la placa y el del botón.']:['El botón de salida va directo:','no pasa por la placa.'];
+  T(s,240,570,n[0],c);T(s,240,593,n[1],c);
 }
 
 /* ---------- STEPS ---------- */
@@ -553,7 +581,7 @@ const S_exp={v:'zoom',z:'exp',t:'Une placa y lector',d:'Conecta el <b>cable EXP<
 const S_power={v:'zoom',z:'power',t:'Da energía a la placa',d:'Borne <b>POWER</b>: +12V In y 0V. Usa su propia fuente de 12 V.',o:'El lector no alimenta la placa.'};
 const S_net={v:'scene',hl:['net','sw','reader'],t:'Conecta el cable de red',d:'Al final. El cable de red (PoE) le da datos y energía al lector.',o:['La red debe dar IP automática (DHCP).','Sin firewall ni filtro que bloquee la nube de Dot Origin.','Espera: luz roja unos segundos → azul fijo.'],led:true};
 const S_rec=extra=>({v:'zoom',z:'in',t:'Conecta el botón de recepción',d:'Botón PRO800B al borne <b>INPUT</b>: rojo (NO) → <b>DI</b>, blanco (C) → <b>0V</b>.',o:['El amarillo (NC) se aísla.',extra,'Instálalo bajo el mostrador, fuera del alcance de socios.']});
-const S_doorRelay=(t)=>({v:'zoom',z:'door',t,d:'<b>COM</b> → + de la fuente del imán, pasando por el botón de salida. <b>NC</b> → + del electroimán.',o:['NC, no NO: así la puerta queda cerrada en reposo.','Diodo 1N4007 en las terminales del imán, franja al +.']});
+const S_doorRelay=(t)=>({v:'zoom',z:'door',t,d:'<b>COM</b> → + de la fuente del imán, pasando por el botón de salida. <b>NC</b> → + del electroimán.',o:['NC, no NO: así la puerta queda cerrada en reposo.','Diodo 1N4007 en las terminales del imán (franja al +), solo si el electroimán no lo trae integrado: verifícalo.']});
 const S_doorExit=(t)=>({v:'wire',w:{type:'door'},t,d:'Va <b>directo</b> en el cable + del electroimán, entre la fuente y COM. Usa los bornes <b>C</b> y <b>NC</b> del botón.',o:'No va a la placa: así siempre se puede salir, aunque falle la red.'});
 const S_turnExit=(t,out)=>({v:'wire',w:{type:'turn',out},hl:['exit','exitw','turn'],t,d:'Bornes <b>C</b> y <b>NO</b> del botón a la entrada de <b>SALIDA</b> de la tarjeta del torniquete.',o:'Va directo: no pasa por la placa.'});
 const ALT_WHEN={t:'Cuándo usar esta opción',d:'Solo si Dot Origin no puede configurar la entrada DI. Los botones de recepción no llegan a la placa.',o:['Sin horario ni registro de aperturas.','Lector, placa, red y NGA: igual que en «2 lectores».']};
@@ -598,18 +626,39 @@ const STEPS={
  ],
  alt_door:[
   Object.assign({v:'wire',w:{type:'door',alt:true}},ALT_WHEN),
-  {v:'wire',w:{type:'door',alt:true},hl:['loop','ret','psu','exit','rec','board','mag'],t:'Arma el circuito en serie',d:'Fuente + → botón de salida → botón de recepción → <b>COM</b>. <b>NC</b> → + del electroimán.',o:'En los dos botones se usan C y NC.'},
-  {v:'wire',w:{type:'door',alt:true},hl:['rec','loop'],t:'Lleva el cable a recepción',d:'Dos hilos de ida y vuelta hasta el botón de recepción.',o:['Lleva la corriente del imán: elige el calibre según la distancia.','PRO800B: blanco (C) y amarillo (NC); el rojo (NO) se aísla.']},
+  {v:'list',list:'door',t:'Cable por cable',d:'Conecta en este orden. Todo es un solo circuito en serie.',o:'Del PRO800B se usan blanco (C) y amarillo (NC); el rojo (NO) se aísla.'},
+  {v:'wire',w:{type:'door',alt:true},hl:['loop','ret','psu','exit','rec','board','mag'],t:'Así queda el circuito',d:'Fuente + → C y NC del botón de salida → C y NC del botón de recepción → <b>COM</b>. <b>NC</b> → + del electroimán.',o:'El − del electroimán va directo al − de su fuente.'},
+  {v:'wire',w:{type:'door',alt:true},hl:['rec','loop'],t:'Lleva el cable a recepción',d:'Dos hilos: uno de ida (al C del botón) y uno de regreso (del NC del botón a COM).',o:'Lleva la corriente del imán: elige el calibre según la distancia.'},
   {v:'wire',w:{type:'door',alt:true},hl:['rec','exit'],t:'Temporizador (opcional)',d:'Sin temporizador, la puerta se libera solo mientras se presiona el botón.',o:'Algunos botones o electroimanes ya lo traen integrado.'},
   {v:'wire',w:{type:'door',alt:true},t:'Prueba',d:'Presiona cada botón y pasa un pase: en los tres casos la puerta se libera.',o:'Recepción abre a cualquier hora: instala el botón fuera del alcance de socios.'}
  ],
  alt_turn:[
   Object.assign({v:'wire',w:{type:'turn',alt:true,out:'OUTPUT 1'}},ALT_WHEN),
-  {v:'wire',w:{type:'turn',alt:true,out:'OUTPUT 1'},hl:['rec','recw','turn','board','boardw'],t:'Botón de recepción en paralelo',d:'<b>C</b> y <b>NO</b> del botón a los mismos bornes de <b>ENTRADA</b> donde llegan COM y NO de la placa.',o:'PRO800B: blanco (C) y rojo (NO); el amarillo (NC) se aísla.'},
-  {v:'wire',w:{type:'turn',alt:true,out:'OUTPUT 1'},hl:['exit','exitw','turn'],t:'Botón de salida',d:'<b>C</b> y <b>NO</b> a la entrada de <b>SALIDA</b> del torniquete, igual que en la guía principal.'},
+  {v:'list',list:'turn',t:'Cable por cable',d:'Cada borne de ENTRADA recibe dos cables: el de la placa y el del botón de recepción.',o:'Del PRO800B se usan blanco (C) y rojo (NO); el amarillo (NC) se aísla.'},
+  {v:'wire',w:{type:'turn',alt:true,out:'OUTPUT 1'},hl:['rec','recw','turn','board','boardw'],t:'Botón de recepción en paralelo',d:'Blanco (C) al borne <b>común</b> de ENTRADA y rojo (NO) al borne de <b>apertura</b>, junto a los cables de la placa.',o:'Donde los cables se cruzan con un arco, no se tocan.'},
+  {v:'wire',w:{type:'turn',alt:true,out:'OUTPUT 1'},hl:['exit','exitw','turn'],t:'Botón de salida',d:'<b>C</b> al común y <b>NO</b> a la apertura de <b>SALIDA</b>, igual que en la guía principal.'},
   {v:'wire',w:{type:'turn',alt:true,out:'OUTPUT 1'},t:'Prueba',d:'Pasa un pase y presiona el botón de recepción: en ambos casos el torniquete libera un giro.',o:'Recepción abre a cualquier hora: instala el botón fuera del alcance de socios.'}
  ]
 };
+const CONN={
+ door:[
+  ['Fuente 12 V (imán) · <b>+</b>','Botón de salida · <b>C</b>',''],
+  ['Botón de salida · <b>NC</b>','Botón de recepción · <b>C</b> <span class="swc" style="background:#f2f2f2"></span> blanco','Hilo de ida a recepción'],
+  ['Botón de recepción · <b>NC</b> <span class="swc" style="background:#fdd835"></span> amarillo','Placa · OUTPUT 1 · <b>COM</b>','Hilo de regreso de recepción'],
+  ['Placa · OUTPUT 1 · <b>NC</b>','Electroimán · <b>+</b>',''],
+  ['Electroimán · <b>−</b>','Fuente 12 V (imán) · <b>−</b>',''],
+  ['Diodo 1N4007','Terminales del electroimán, franja al +','Solo si el electroimán no lo trae: verifícalo']
+ ],
+ turn:[
+  ['Placa · OUTPUT 1 · <b>COM</b>','Torniquete · ENTRADA · <b>común</b>',''],
+  ['Placa · OUTPUT 1 · <b>NO</b>','Torniquete · ENTRADA · <b>apertura</b>',''],
+  ['Botón de recepción · <b>C</b> <span class="swc" style="background:#f2f2f2"></span> blanco','Torniquete · ENTRADA · <b>común</b>','Mismo borne que el cable 1'],
+  ['Botón de recepción · <b>NO</b> <span class="swc" style="background:#e53935"></span> rojo','Torniquete · ENTRADA · <b>apertura</b>','Mismo borne que el cable 2'],
+  ['Botón de salida · <b>C</b>','Torniquete · SALIDA · <b>común</b>',''],
+  ['Botón de salida · <b>NO</b>','Torniquete · SALIDA · <b>apertura</b>','']
+ ]
+};
+function listView(k){return `<div class="conn">${CONN[k].map((r,n)=>`<div class="cr"><span class="n">${n+1}</span><div class="cf">${r[0]}</div><span class="ca">→</span><div class="cf">${r[1]}</div>${r[2]?`<div class="cx">${r[2]}</div>`:''}</div>`).join('')}</div>`;}
 const SECNOTE={two:'Un lector en la puerta y otro en el torniquete. Los botones de recepción van a la placa.',one:'Un solo lector libera la puerta (OUTPUT 1) y el torniquete (OUTPUT 2).',alt:'Alternativa: los botones de recepción no llegan a la placa. Úsala solo si Dot Origin no puede configurar la entrada DI.'};
 
 let sec='two',sub='door',i=0,timers=[];
@@ -634,7 +683,8 @@ function ngaView(s){
 function render(){
   clear();
   const S=STEPS[key()],s=S[i];
-  ['scene','zoom','nga','wire'].forEach(v=>$(v).classList.toggle('on',v===s.v));
+  ['scene','zoom','nga','wire','list'].forEach(v=>$(v).classList.toggle('on',v===s.v));
+  $('kitwrap').style.display=i===0?'block':'none';
   $('ztag').classList.toggle('on',s.v==='zoom');
   $('bn').textContent=i+1;$('st').textContent=s.t;$('sd').innerHTML=s.d;
   $('ojo').innerHTML=s.o?(Array.isArray(s.o)?s.o:[s.o]).map(x=>`<span class="ojo">${OJO_I}${x}</span>`).join(''):'';
@@ -654,6 +704,7 @@ function render(){
   if(s.v==='zoom'){const z=$('zoom');z.innerHTML='';zoomBoard(z,s.z,MOB);}
   if(s.v==='wire'){const w=$('wire');w.innerHTML='';(s.w.type==='door'?wireDoor:wireTurn)(w,s.w);applyHL(w,s.hl);}
   if(s.v==='nga') $('nga').innerHTML=ngaView(s);
+  if(s.v==='list') $('list').innerHTML=listView(s.list);
   $('dots').innerHTML=S.map((_,n)=>`<button class="dot ${n===i?'cur':n<i?'done':''}" data-k="${n}" aria-label="Paso ${n+1}">${n+1}</button>`).join('');
   $('dots').querySelectorAll('.dot').forEach(d=>d.onclick=()=>{i=+d.dataset.k;render();});
   $('prev').disabled=i===0;
@@ -709,7 +760,7 @@ const kit=[
  ['Electroimán','con su fuente',s=>{s.appendChild(el('rect',{x:15,y:28,width:130,height:22,rx:3,fill:'#7a7a7a'}));s.appendChild(el('rect',{x:27,y:54,width:106,height:8,rx:2,fill:'#5a5a5a'}));}],
  ['Torniquete','entrada de contacto seco',s=>{s.appendChild(el('rect',{x:30,y:30,width:70,height:50,rx:6,fill:'#1a1a1a',stroke:'#3a3a3a','stroke-width':2}));const g=el('g',{transform:'translate(118,46)'});[60,180,300].forEach(a=>g.appendChild(el('line',{x1:0,y1:0,x2:0,y2:-30,stroke:'#cfcfcf','stroke-width':5,'stroke-linecap':'round',transform:`rotate(${a})`})));g.appendChild(el('circle',{r:7,fill:'#888'}));s.appendChild(g);}],
  ['Botón PRO800B','recepción · C, NO, NC',s=>{s.appendChild(el('rect',{x:40,y:10,width:80,height:70,rx:6,fill:'#cfd2d4'}));s.appendChild(el('circle',{cx:80,cy:45,r:20,fill:'#1d1d1d',stroke:'#888','stroke-width':2}));[['#f2f2f2',0],['#e53935',8],['#fdd835',16]].forEach(([c,d])=>s.appendChild(el('path',{d:`M120,${36+d} H150`,stroke:c,'stroke-width':4})));}],
- ['Diodo 1N4007','franja al + del imán',s=>{s.appendChild(el('path',{d:'M15,45 H145',stroke:'#bbb','stroke-width':3}));s.appendChild(el('rect',{x:55,y:33,width:50,height:24,rx:5,fill:'#1d1d1d'}));s.appendChild(el('rect',{x:93,y:33,width:7,height:24,fill:'#cfcfcf'}));}]
+ ['Diodo 1N4007','solo si el imán no lo trae',s=>{s.appendChild(el('path',{d:'M15,45 H145',stroke:'#bbb','stroke-width':3}));s.appendChild(el('rect',{x:55,y:33,width:50,height:24,rx:5,fill:'#1d1d1d'}));s.appendChild(el('rect',{x:93,y:33,width:7,height:24,fill:'#cfcfcf'}));}]
 ];
 $('kit').innerHTML=kit.map((k,n)=>`<div class="kc"><svg viewBox="0 0 160 90" id="k${n}"></svg><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
 kit.forEach((k,n)=>k[2]($('k'+n)));
