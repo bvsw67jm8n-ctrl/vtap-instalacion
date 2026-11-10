@@ -36,6 +36,11 @@ h1 span{color:var(--o)}
 .cr .ca{color:var(--o);font-weight:900;font-size:22px}
 .cr .cx{grid-column:2/-1;color:var(--o);font-size:15px;font-weight:700;margin-top:-4px}
 .swc{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:middle;margin:0 2px 2px 4px;border:1px solid #555}
+.mini{display:none;justify-content:flex-end;margin:0 0 10px}
+.mini img{width:130px;display:block}
+body.compact .top,body.compact #lead{display:none}
+body.compact .mini{display:flex}
+body.compact .page{padding-top:16px}
 /* stage */
 .stage{background:var(--alt);border:1px solid var(--bd);border-radius:26px;overflow:hidden}
 .view{position:relative}
@@ -153,6 +158,7 @@ h2 span{color:var(--o)}
 </head>
 <body>
 <div class="page">
+ <div class="mini"><img alt="STATION" id="minilogo"></div>
  <div class="top">
   <div>
    <div class="eyebrow">Capacitación · Instalación</div>
@@ -160,7 +166,7 @@ h2 span{color:var(--o)}
   </div>
   <img class="logo" alt="STATION" src="data:image/png;base64,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">
  </div>
- <p class="lead">Paso a paso. Elige el tipo de sucursal y avanza con las flechas.</p>
+ <p class="lead" id="lead">Paso a paso. Elige el tipo de sucursal y avanza con las flechas.</p>
 
  <div class="switch">
   <button class="sbtn" data-sec="two" aria-pressed="true">2 lectores</button>
@@ -382,17 +388,17 @@ function zoomBoard(z,conn,mob){
   const RED='#e53935',WH='#f2f2f2',STR=['#e53935','#000','#1e88e5','#43a047','#fdd835','#fff'];
   if(mob){
     if(conn==='exp'){wire(z,'M114,480 V560','#fff',7,'draw');STR.forEach((c,k)=>z.appendChild(el('rect',{x:94+k*7,y:477,width:5,height:9,fill:c})));dev(10,560,170,64,'LECTOR','cable EXP');T(z,192,600,'máx. 3 m',{fill:O,'font-size':18,'font-weight':900});}
-    if(conn==='door'){wire(z,'M297,276 V180 H200',O,5,'draw');wire(z,'M316,276 V100',O,5,'draw');dev(10,150,190,62,'FUENTE IMÁN','vía botón salida');dev(240,36,170,64,'ELECTROIMÁN','borne +');chip(290,252,'COM','end');chip(323,252,'NC','start');note(210,664,'El − del electroimán va directo');note(210,686,'al − de su fuente.');}
+    if(conn==='door'){wire(z,'M297,276 V180 H200',O,5,'draw');wire(z,'M316,276 V68',O,5,'draw');dev(10,150,190,62,'FUENTE IMÁN','vía botón salida');drawMag(z,240,44,170,316,340);T(z,325,32,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});chip(290,252,'COM','end');chip(323,252,'NC','start');note(210,664,'El − del electroimán va directo');note(210,686,'al − de su fuente.');}
     if(conn==='turn1'){wire(z,'M278,276 V180 H200',O,5,'draw');wire(z,'M297,276 V100',O,5,'draw');dev(10,150,190,62,'TORNIQUETE','entrada apertura');dev(240,36,170,64,'TORNIQUETE','común');chip(271,252,'NO','end');chip(304,252,'COM','start');note(210,664,'Busca la entrada de «contacto seco»');note(210,686,'de la tarjeta del torniquete.');}
     if(conn==='turn2'){wire(z,'M166,276 V212',O,5,'draw');wire(z,'M185,276 V240 H260 V100',O,5,'draw');dev(10,150,190,62,'TORNIQUETE','entrada apertura');dev(240,36,170,64,'TORNIQUETE','común');chip(159,252,'NO','end');chip(268,180,'COM','start');note(210,664,'OUTPUT 2: separado de OUTPUT 1,');note(210,686,'que es del electroimán.');}
-    if(conn==='in'){wire(z,'M91,276 V136',WH,5,'draw');wire(z,'M110,276 V136',RED,5,'draw');dev(10,40,220,96,'BOTÓN RECEPCIÓN','PRO800B');chip(84,240,'0V','end');chip(118,240,'DI','start');note(210,664,'Rojo (NO) → DI · Blanco (C) → 0V');note(210,686,'Amarillo (NC): aíslalo',O);}
+    if(conn==='in'){drawPRO(z,10,40);wire(z,'M98,98 V150 H91 V276',WH,5,'draw');wire(z,'M112,98 V150 H110 V276',RED,5,'draw');wire(z,'M105,100 V126','#fdd835',5);cap(z,99,131);T(z,150,70,'BOTÓN RECEPCIÓN',{fill:'#fff','font-size':15,'font-weight':900});T(z,150,92,'PRO800B',{fill:O,'font-size':14});chip(84,240,'0V','end');chip(118,240,'DI','start');note(210,664,'Rojo (NO) → DI · Blanco (C) → 0V');note(210,686,'Amarillo (NC): aíslalo',O);}
     if(conn==='power'){wire(z,'M319,481 V590',O,5,'draw');wire(z,'M300,481 V590','#D6D6D6',5,'draw');dev(250,590,160,64,'FUENTE 12 V','solo placa');chip(327,548,'+12V','start');chip(292,548,'0V','end');}
     return;
   }
   if(conn==='exp'){wire(z,'M330,422 V480 H160','#fff',7,'draw');STR.forEach((c,k)=>z.appendChild(el('rect',{x:304+k*9,y:420,width:6,height:12,fill:c})));dev(30,446,128,70,'LECTOR','cable EXP');T(z,250,512,'máx. 3 m',{fill:O,'font-size':18,'font-weight':900});}
-  if(conn==='door'){wire(z,'M564,162 V110 H180',O,5,'draw');wire(z,'M588,162 V70 H720',O,5,'draw');dev(30,80,150,62,'FUENTE IMÁN','vía botón salida');dev(720,40,150,62,'ELECTROIMÁN','borne +');chip(556,140,'COM','end');chip(596,140,'NC','start');note(450,560,'El − del electroimán va directo al − de su fuente.');}
+  if(conn==='door'){wire(z,'M564,162 V110 H180',O,5,'draw');wire(z,'M588,162 V64 H704',O,5,'draw');dev(30,80,150,62,'FUENTE IMÁN','vía botón salida');drawMag(z,690,48,200,712,740);T(z,790,124,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});chip(556,140,'COM','end');chip(596,140,'NC','start');note(450,560,'El − del electroimán va directo al − de su fuente.');}
   if(conn==='turn1'||conn==='turn2'){const no=conn==='turn1'?540:396,com=conn==='turn1'?564:420;wire(z,`M${no},162 V110 H180`,O,5,'draw');wire(z,`M${com},162 V66 H180`,O,5,'draw');dev(20,40,160,52,'TORNIQUETE','común');dev(20,96,160,52,'TORNIQUETE','entrada apertura');chip(no-8,140,'NO','end');chip(com+8,140,'COM','start');note(450,560,conn==='turn2'?'OUTPUT 2: separado de OUTPUT 1, que es del electroimán.':'Busca la entrada de «contacto seco» de la tarjeta del torniquete.');}
-  if(conn==='in'){wire(z,'M300,162 V110 H180',WH,5,'draw');wire(z,'M324,162 V66 H180',RED,5,'draw');dev(20,36,160,110,'BOTÓN','RECEPCIÓN');T(z,100,128,'PRO800B',{'text-anchor':'middle',fill:O,'font-size':15});chip(292,140,'0V','end');chip(332,140,'DI','start');note(450,536,'Rojo (NO) → DI · Blanco (C) → 0V');note(450,562,'Amarillo (NC): aíslalo, no se usa',O);}
+  if(conn==='in'){const pg=el('g',{transform:'translate(170,38) scale(1.4)'});z.appendChild(pg);drawPRO(pg,0,0);wire(z,'M294,120 V142 H300 V162',WH,5,'draw');wire(z,'M312,120 V142 H324 V162',RED,5,'draw');wire(z,'M303,124 V134','#fdd835',5);cap(z,297,139);T(z,160,84,'BOTÓN',{'text-anchor':'end',fill:'#fff','font-size':16,'font-weight':900});T(z,160,106,'RECEPCIÓN',{'text-anchor':'end',fill:'#fff','font-size':16,'font-weight':900});T(z,160,128,'PRO800B',{'text-anchor':'end',fill:O,'font-size':15});chip(290,152,'0V','end');chip(334,152,'DI','start');note(450,536,'Rojo (NO) → DI · Blanco (C) → 0V');note(450,562,'Amarillo (NC): aíslalo, no se usa',O);}
   if(conn==='power'){wire(z,'M592,424 V470 H740',O,5,'draw');wire(z,'M568,424 V500 H740','#D6D6D6',5,'draw');dev(740,440,140,84,'FUENTE 12 V','solo placa');chip(600,462,'+12V In','start');chip(560,500,'0V','end');}
 }
 
@@ -524,42 +530,80 @@ function wbox(p,x,y,w,h,t1,t2,o={}){
   if(t2)T(p,x+w/2,ty+19,t2,{'text-anchor':'middle',fill:'#9A9A9A','font-size':13,'font-weight':700});
 }
 function tchip(p,x,y,s,anchor='start'){const w=s.length*9+14;const xx=anchor==='end'?x-w:x;p.appendChild(el('rect',{x:xx,y:y-11,width:w,height:22,rx:6,fill:O}));T(p,xx+w/2,y+5,s,{'text-anchor':'middle',fill:'#000','font-size':14,'font-weight':900});}
+/* dibujos fieles */
+function drawPRO(p,x,y){ // botón AccessPRO PRO800B (vista trasera), 130x80; devuelve centro del interruptor
+  p.appendChild(el('rect',{x,y,width:130,height:80,rx:4,fill:'#cfd2d4',stroke:'#8f9396','stroke-width':1.5}));
+  p.appendChild(el('rect',{x:x+5,y:y+5,width:60,height:46,rx:2,fill:'#eceeef'}));
+  [['C','White','#f2f2f2'],['NO','Red','#e53935'],['NC','Yellow','#fdd835']].forEach(([a,b,c],k)=>{
+    const yy=y+17+k*14;
+    p.appendChild(el('text',{x:x+9,y:yy,'font-size':10,'font-weight':800,fill:'#222'},a));
+    p.appendChild(el('circle',{cx:x+30,cy:yy-3,r:3.2,fill:c,stroke:'#555','stroke-width':.6}));
+    p.appendChild(el('text',{x:x+36,y:yy,'font-size':10,'font-weight':800,fill:'#222'},b));
+  });
+  p.appendChild(el('text',{x:x+7,y:y+72,'font-size':10,'font-weight':800,fill:'#333'},'PRO800B'));
+  p.appendChild(el('circle',{cx:x+95,cy:y+40,r:20,fill:'#1d1d1d',stroke:'#f2f2f2','stroke-width':3}));
+  p.appendChild(el('rect',{x:x+88,y:y+30,width:14,height:20,rx:2,fill:'#333'}));
+  return [x+95,y+40];
+}
+function drawExit(p,x,y,s,bx,screws){ // botón de salida genérico + bornera
+  p.appendChild(el('rect',{x,y,width:s,height:s,rx:8,fill:'#cfd2d4',stroke:'#8f9396','stroke-width':1.5}));
+  p.appendChild(el('circle',{cx:x+s/2,cy:y+s/2,r:s*0.32,fill:'#2fa34a',stroke:'#1d7a37','stroke-width':3}));
+  p.appendChild(el('text',{x:x+s/2,y:y+s/2+4,'text-anchor':'middle','font-size':11,'font-weight':900,fill:'#fff'},'SALIDA'));
+  const ys=screws.map(q=>q[1]);const y0=Math.min(...ys)-14,y1=Math.max(...ys)+14;
+  p.appendChild(el('rect',{x:bx,y:y0,width:42,height:y1-y0,rx:4,fill:'#1d1d1d',stroke:'#444'}));
+  screws.forEach(([l,sy,used])=>{p.appendChild(el('text',{x:bx+5,y:sy+4,'font-size':11,'font-weight':900,fill:used?'#fff':'#777'},l));
+    p.appendChild(el('circle',{cx:bx+31,cy:sy,r:6,fill:used?O:'#5a5a5a',stroke:'#000'}));});
+}
+function drawMag(p,x,y,w,px,mx){ // electroimán AccessPRO: cuerpo, bornera + / −, LED y placa
+  p.appendChild(el('rect',{x,y,width:w,height:34,rx:3,fill:'#b9bdc0',stroke:'#6a6e71','stroke-width':1.5}));
+  p.appendChild(el('path',{d:`M${x+6},${y+27} H${x+w-6}`,stroke:'#9a9ea1','stroke-width':1.5}));
+  p.appendChild(el('rect',{x:px-14,y:y+5,width:mx-px+28,height:22,rx:3,fill:'#1d1d1d'}));
+  [[px,'+'],[mx,'−']].forEach(([sx,l])=>{p.appendChild(el('circle',{cx:sx,cy:y+16,r:8,fill:'#d9dde0',stroke:'#000'}));p.appendChild(el('text',{x:sx,y:y+20.5,'text-anchor':'middle','font-size':13,'font-weight':900,fill:'#000'},l));});
+  p.appendChild(el('circle',{cx:x+w-14,cy:y+17,r:4,fill:O}));
+  p.appendChild(el('rect',{x:x+10,y:y+38,width:w-20,height:7,rx:2,fill:'#7d8184'}));
+}
+const cap=(p,x,y)=>{p.appendChild(el('rect',{x:x,y:y-5,width:12,height:10,rx:3,fill:'#777',stroke:'#000'}));};
 function wireDoor(s,o){
-  const alt=o.alt,H=alt?500:370;
+  const alt=o.alt,H=alt?510:350;
   s.setAttribute('viewBox',`0 0 480 ${H}`);
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
-  const r=G(s,'ret'); wire(r,'M450,78 H466 V20 H14 V78 H30','#8a8a8a',3);
-  T(r,240,13,'− del imán directo al − de la fuente',{'text-anchor':'middle',fill:'#8a8a8a','font-size':13});
-  tchip(r,28,60,'−','end');tchip(r,452,60,'−');
+  const r=G(s,'ret'); wire(r,'M170,46 H200 V20 H272 V40','#8a8a8a',3);
+  T(r,300,24,'− directo a la fuente',{fill:'#8a8a8a','font-size':13});
   const lp=G(s,'loop');
-  wire(lp,'M115,116 V180',O,5,'flow');
-  if(alt){wire(lp,'M115,256 V310',O,5,'flow');wire(lp,'M200,348 H280',O,5,'flow');}
-  else wire(lp,'M200,218 H280',O,5,'flow');
-  wire(lp,`M365,${alt?310:180} V116`,O,5,'flow');
-  tchip(lp,123,138,'+');tchip(lp,123,168,'C');
-  if(alt){tchip(lp,123,274,'NC');tchip(lp,123,300,'C');tchip(lp,204,366,'NC');tchip(lp,276,330,'COM','end');tchip(lp,373,298,'NC');}
-  else{tchip(lp,204,236,'NC');tchip(lp,276,200,'COM','end');tchip(lp,373,168,'NC');}
-  tchip(lp,373,138,'+');
-  wbox(G(s,'psu'),30,40,170,76,'FUENTE 12 V','solo electroimán');
-  wbox(G(s,'mag'),280,40,170,76,'ELECTROIMÁN','diodo si no lo trae',{hot:true});
-  wbox(G(s,'exit'),30,180,170,76,'BOTÓN SALIDA','interior',{hot:true});
-  if(alt) wbox(G(s,'rec'),30,310,170,76,'BOTÓN RECEP.','en recepción',{hot:true,dash:true});
-  wbox(G(s,'board'),280,alt?310:180,170,76,'PLACA EXP1','OUTPUT 1');
-  const ny=alt?430:300,c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
+  wire(lp,'M55,94 V120 H180 V160 H162',O,5,'flow');
+  if(!alt) wire(lp,'M162,210 H200 V245 H290',O,5,'flow');
+  wire(lp,`M290,${alt?350:220} H245 V74`,O,5,'flow');
+  const pg=G(s,'psu'); wbox(pg,20,30,150,64,'FUENTE 12 V','solo electroimán');
+  T(pg,64,112,'+',{fill:O,'font-size':16,'font-weight':900});T(pg,178,40,'−',{fill:'#bbb','font-size':16,'font-weight':900});
+  const mg=G(s,'mag'); drawMag(mg,230,40,230,245,272);
+  T(mg,365,104,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});
+  T(mg,365,122,'diodo si no lo trae',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  const eg=G(s,'exit'); drawExit(eg,30,140,86,122,[['C',160,true],['NO',185,false],['NC',210,true]]);
+  T(eg,73,246,'BOTÓN SALIDA',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
+  T(eg,73,264,'interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  if(alt){
+    const rg=G(s,'rec'); const [sx,sy]=drawPRO(rg,30,272);
+    wire(rg,`M${sx+18},${sy-10} H205 V210 H162`,'#f2f2f2',4);
+    wire(rg,`M${sx+18},${sy} H170`,'#e53935',4); cap(rg,170,sy);
+    wire(rg,`M${sx+18},${sy+10} H230 V375 H290`,'#fdd835',4);
+    T(rg,95,374,'BOTÓN RECEPCIÓN',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
+    T(rg,95,392,'PRO800B · cable largo',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  }
+  const bg=G(s,'board'); const by=alt?300:170;
+  wbox(bg,290,by,170,100,'PLACA EXP1','OUTPUT 1',{top:true});
+  [['NC',by+50],['COM',by+75]].forEach(([l,yy])=>{bg.appendChild(el('circle',{cx:290,cy:yy,r:5,fill:O}));T(bg,300,yy+5,l,{fill:'#fff','font-size':14,'font-weight':900});});
+  const ny=alt?440:300,c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
   T(s,240,ny,'Todo en serie: si cualquier contacto se abre,',c);
   T(s,240,ny+22,'la puerta se libera.',c);
   if(alt)T(s,240,ny+50,'Sin temporizador: libera solo mientras se presiona.',Object.assign({},c,{fill:O}));
 }
 function wireTurn(s,o){
-  const H=610;s.setAttribute('viewBox',`0 0 480 ${H}`);
+  const H=630;s.setAttribute('viewBox',`0 0 480 ${H}`);
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
   const WH='#f2f2f2';
   const dot=(p,x,y,c)=>p.appendChild(el('circle',{cx:x,cy:y,r:5,fill:c}));
   const bw=G(s,'boardw'); wire(bw,'M190,160 H295',WH,4); wire(bw,'M190,195 H295',O,5,'flow');
-  if(o.alt){const rw=G(s,'recw');
-    wire(rw,'M190,305 H250 V203 A8,8 0 0 0 250,187 V160',WH,4); dot(rw,250,160,WH);
-    wire(rw,'M190,335 H270 V195',O,5,'flow'); dot(rw,270,195,O);}
-  const ew=G(s,'exitw'); wire(ew,'M190,460 H295',WH,4); wire(ew,'M190,495 H295',O,5,'flow');
+  const ew=G(s,'exitw'); wire(ew,'M154,460 H295',WH,4); wire(ew,'M154,495 H295',O,5,'flow');
   const t=G(s,'turn');
   t.appendChild(el('rect',{x:280,y:40,width:180,height:500,rx:14,fill:'none',stroke:'#5a5a5a','stroke-width':2,'stroke-dasharray':'7 6'}));
   T(t,370,64,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
@@ -568,11 +612,20 @@ function wireTurn(s,o){
   term(t,295,100,150,120,'ENTRADA',[['común',160,WH],['apertura',195,O]],'left');
   term(t,295,400,150,120,'SALIDA',[['común',460,WH],['apertura',495,O]],'left');
   const bg=G(s,'board'); term(bg,20,100,170,120,'PLACA EXP1',[['COM',160,WH],['NO',195,O]],'right'); T(bg,105,145,o.out,{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
-  if(o.alt){const rg=G(s,'rec'); term(rg,20,250,170,110,'BOTÓN RECEP.',[['C · blanco',305,WH],['NO · rojo',335,O]],'right');}
-  const eg=G(s,'exit'); term(eg,20,400,170,120,'BOTÓN SALIDA',[['C',460,WH],['NO',495,O]],'right'); T(eg,105,445,'interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  if(o.alt){
+    const rg=G(s,'rec'); const [sx,sy]=drawPRO(rg,20,250);
+    wire(rg,`M${sx+18},${sy-10} H250 V203 A8,8 0 0 0 250,187 V160`,WH,4); dot(rg,250,160,WH);
+    wire(rg,`M${sx+18},${sy+2} H270 V195`,'#e53935',4); dot(rg,270,195,'#e53935');
+    wire(rg,`M${sx+18},${sy+14} H160`,'#fdd835',4); cap(rg,160,sy+14);
+    T(rg,85,350,'BOTÓN RECEPCIÓN',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
+    T(rg,85,368,'PRO800B · amarillo aislado',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  }
+  const eg=G(s,'exit'); drawExit(eg,20,430,86,112,[['C',460,true],['NO',495,true],['NC',528,false]]);
+  T(eg,63,560,'BOTÓN SALIDA',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
+  T(eg,63,578,'interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
   const c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
-  const n=o.alt?['Dos cables en cada borne de ENTRADA:','el de la placa y el del botón.']:['El botón de salida va directo:','no pasa por la placa.'];
-  T(s,240,570,n[0],c);T(s,240,593,n[1],c);
+  const n=o.alt?'Dos cables en cada borne de ENTRADA: placa y botón.':'El botón de salida va directo: no pasa por la placa.';
+  T(s,240,612,n,c);
 }
 
 /* ---------- STEPS ---------- */
@@ -683,6 +736,8 @@ function ngaView(s){
 function render(){
   clear();
   const S=STEPS[key()],s=S[i];
+  const wasC=document.body.classList.contains('compact');document.body.classList.toggle('compact',i>0);
+  if(window.__navReady){if(wasC!==(i>0))window.scrollTo(0,0);else{const st=document.querySelector('.stage').getBoundingClientRect().top;if(st<0)window.scrollTo(0,window.scrollY+st-12);}}
   ['scene','zoom','nga','wire','list'].forEach(v=>$(v).classList.toggle('on',v===s.v));
   $('kitwrap').style.display=i===0?'block':'none';
   $('ztag').classList.toggle('on',s.v==='zoom');
@@ -744,13 +799,14 @@ document.querySelectorAll('[data-sub]').forEach(b=>b.onclick=()=>{sub=b.dataset.
 $('prev').onclick=()=>{if(i>0){i--;render();}};
 $('next').onclick=()=>{i=i<STEPS[key()].length-1?i+1:0;render();};
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('next').click();if(e.key==='ArrowLeft')$('prev').click();});
-setSec('two');
+setSec('two');window.__navReady=true;
 MQ.addEventListener('change',e=>{MOB=e.matches;render();});
 (function(){let x0=null;const v=document.querySelector('.view');
  v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
  v.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;
   if(Math.abs(dx)>50){ if(dx<0) $('next').click(); else $('prev').click(); }},{passive:true});})();
 
+$('minilogo').src=document.querySelector('.logo').src;
 /* ---------- KIT ---------- */
 const kit=[
  ['Lector VTAP','VTAP100 PRO PoE',s=>reader(s,57,4,1)],
