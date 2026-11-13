@@ -89,6 +89,10 @@ body.compact .page{padding-top:16px}
 .fi{background:#222326;border-radius:10px;padding:11px 14px;font-size:17px;color:#fff;border:2px solid transparent;font-family:ui-monospace,Menlo,monospace}
 .fi.k{border-color:var(--o)}
 .fi.x{color:#5c5e63}
+.fh{display:none;color:#C9C9C9;font-size:14px;margin:4px 0 0}
+.fh b{color:var(--o)}
+.fl .n{width:22px;height:22px;border-radius:50%;background:var(--o);color:#000;display:inline-grid;place-items:center;font-size:13px;font-weight:900;flex:none}
+.form h4 .ej{display:inline-block;vertical-align:middle;margin-left:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#000;background:var(--o);border-radius:999px;padding:3px 10px;font-family:inherit}
 .ngaside .t{font-weight:900;text-transform:uppercase;color:#fff;font-size:26px;font-stretch:115%;margin:0 0 14px}
 .ngaside ol{margin:0;padding:0;list-style:none;display:grid;gap:12px}
 .ngaside li{display:flex;gap:14px;align-items:flex-start;font-size:19px}
@@ -232,7 +236,14 @@ h2 span{color:var(--o)}
  #ojo .ojo.x{display:none}
  #ojo.open .ojo.x{display:flex}
  .ojomore{display:inline-block;margin:8px 0 0;font:inherit;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.04em;background:none;border:0;color:var(--o);padding:4px 0;cursor:pointer}
- body.compact .nga .form{display:none}
+ body.compact .nga{gap:12px;padding:12px}
+ body.compact .form{padding:12px 14px}
+ body.compact .form .path,body.compact .form .s{display:none}
+ body.compact .form h4{margin:0 0 2px;font-size:17px}
+ body.compact .fl{margin:8px 0 4px;font-size:14px}
+ body.compact .fi{padding:6px 10px;font-size:15px}
+ body.compact .ngaside{display:none}
+ body.compact .fh{display:block}
  body.compact .info{padding:12px 14px}
  body.compact .sd{font-size:16px}
  .band{font-size:18px;padding:18px}
@@ -479,7 +490,7 @@ function zoomBoard(z,conn,mob){
   const RED='#e53935',WH='#f2f2f2',STR=['#e53935','#000','#1e88e5','#43a047','#fdd835','#fff'];
   if(mob){
     if(conn==='exp'){wire(z,'M114,480 V560','#fff',7,'draw');STR.forEach((c,k)=>z.appendChild(el('rect',{x:94+k*7,y:477,width:5,height:9,fill:c})));dev(10,560,170,64,'LECTOR','cable EXP');T(z,192,600,'máx. 3 m',{fill:O,'font-size':18,'font-weight':900});}
-    if(conn==='door'){wire(z,'M297,276 V180 H200',O,5,'draw');wire(z,'M316,276 V68',O,5,'draw');dev(10,150,190,62,'FUENTE IMÁN','vía botón salida');drawMag(z,226,44,190,316,340);T(z,321,32,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});chip(290,252,'COM','end');chip(323,252,'NC','start');note(210,642,'V− del electroimán: directo al − de su fuente.');note(210,664,'NC · COM · NO de la chapa son del sensor:');note(210,686,'no los uses.');}
+    if(conn==='door'){wire(z,'M297,276 V180 H200',O,5,'draw');wire(z,'M316,276 V68',O,5,'draw');dev(10,150,190,62,'FUENTE IMÁN','+ directo a COM');drawMag(z,226,44,190,316,340);T(z,321,32,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});chip(290,252,'COM','end');chip(323,252,'NC','start');note(210,642,'V− del electroimán: directo al − de su fuente.');note(210,664,'NC · COM · NO de la chapa son del sensor:');note(210,686,'no los uses.');}
     if(conn==='turn1'){wire(z,'M278,276 V180 H200',O,5,'draw');wire(z,'M297,276 V100',O,5,'draw');dev(10,150,190,62,'TORNIQUETE','entrada apertura');dev(240,36,170,64,'TORNIQUETE','común');chip(271,252,'NO','end');chip(304,252,'COM','start');note(210,664,'Busca la entrada de «contacto seco»');note(210,686,'de la tarjeta del torniquete.');}
     if(conn==='turn2'){wire(z,'M166,276 V212',O,5,'draw');wire(z,'M185,276 V240 H260 V100',O,5,'draw');dev(10,150,190,62,'TORNIQUETE','entrada apertura');dev(240,36,170,64,'TORNIQUETE','común');chip(159,252,'NO','end');chip(268,180,'COM','start');note(210,664,'OUTPUT 2: separado de OUTPUT 1,');note(210,686,'que es del electroimán.');}
     if(conn==='in'){drawPRO(z,10,40);wire(z,'M98,98 V150 H91 V276',WH,5,'draw');wire(z,'M112,98 V150 H110 V276',RED,5,'draw');wire(z,'M105,100 V126','#fdd835',5);cap(z,99,131);T(z,150,70,'BOTÓN RECEPCIÓN',{fill:'#fff','font-size':15,'font-weight':900});T(z,150,92,'PRO800B',{fill:O,'font-size':14});chip(84,240,'0V','end');chip(118,240,'DI','start');note(210,664,'Rojo (NO) → DI · Blanco (C) → 0V');note(210,686,'Amarillo (NC): aíslalo',O);}
@@ -487,7 +498,7 @@ function zoomBoard(z,conn,mob){
     return;
   }
   if(conn==='exp'){wire(z,'M330,422 V480 H160','#fff',7,'draw');STR.forEach((c,k)=>z.appendChild(el('rect',{x:304+k*9,y:420,width:6,height:12,fill:c})));dev(30,446,128,70,'LECTOR','cable EXP');T(z,250,512,'máx. 3 m',{fill:O,'font-size':18,'font-weight':900});}
-  if(conn==='door'){wire(z,'M564,162 V110 H180',O,5,'draw');wire(z,'M588,162 V64 H704',O,5,'draw');dev(30,80,150,62,'FUENTE IMÁN','vía botón salida');drawMag(z,690,48,200,712,740);T(z,790,124,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});chip(556,140,'COM','end');chip(596,140,'NC','start');note(450,538,'V− del electroimán: directo al − de su fuente.');note(450,560,'NC · COM · NO de la chapa son del sensor: no los uses.');}
+  if(conn==='door'){wire(z,'M564,162 V110 H180',O,5,'draw');wire(z,'M588,162 V64 H704',O,5,'draw');dev(30,80,150,62,'FUENTE IMÁN','+ directo a COM');drawMag(z,690,48,200,712,740);T(z,790,124,'ELECTROIMÁN',{'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':900});chip(556,140,'COM','end');chip(596,140,'NC','start');note(450,538,'V− del electroimán: directo al − de su fuente.');note(450,560,'NC · COM · NO de la chapa son del sensor: no los uses.');}
   if(conn==='turn1'||conn==='turn2'){const no=conn==='turn1'?540:396,com=conn==='turn1'?564:420;wire(z,`M${no},162 V110 H180`,O,5,'draw');wire(z,`M${com},162 V66 H180`,O,5,'draw');dev(20,40,160,52,'TORNIQUETE','común');dev(20,96,160,52,'TORNIQUETE','entrada apertura');chip(no-8,140,'NO','end');chip(com+8,140,'COM','start');note(450,560,conn==='turn2'?'OUTPUT 2: separado de OUTPUT 1, que es del electroimán.':'Busca la entrada de «contacto seco» de la tarjeta del torniquete.');}
   if(conn==='in'){const pg=el('g',{transform:'translate(170,38) scale(1.4)'});z.appendChild(pg);drawPRO(pg,0,0);wire(z,'M294,120 V142 H300 V162',WH,5,'draw');wire(z,'M312,120 V142 H324 V162',RED,5,'draw');wire(z,'M303,124 V134','#fdd835',5);cap(z,297,139);T(z,160,84,'BOTÓN',{'text-anchor':'end',fill:'#fff','font-size':16,'font-weight':900});T(z,160,106,'RECEPCIÓN',{'text-anchor':'end',fill:'#fff','font-size':16,'font-weight':900});T(z,160,128,'PRO800B',{'text-anchor':'end',fill:O,'font-size':15});chip(290,152,'0V','end');chip(334,152,'DI','start');note(450,536,'Rojo (NO) → DI · Blanco (C) → 0V');note(450,562,'Amarillo (NC): aíslalo, no se usa',O);}
   if(conn==='power'){wire(z,'M592,424 V470 H740',O,5,'draw');wire(z,'M568,424 V500 H740','#D6D6D6',5,'draw');dev(740,440,140,84,'FUENTE 12 V','solo placa');chip(600,462,'+12V In','start');chip(560,500,'0V','end');}
@@ -614,6 +625,20 @@ function sceneCombo(s){
 }
 
 /* ---------- WIRING DIAGRAMS (botones) ---------- */
+function drawOut(p,x,y,w,out,used){ // recorte fiel de la EXP1: bornera verde arriba (0V NO COM NC +12) y cara gris; devuelve x de cada borne
+  const H=96,sp=26,cx=x+w/2,names=['0V','NO','COM','NC','+12'],X={};
+  p.appendChild(el('rect',{x,y,width:w,height:H,rx:18,fill:'#1e1e1e',stroke:'#000','stroke-width':1.5}));
+  p.appendChild(el('polygon',{points:`${x+22},${y+10} ${x+w-22},${y+10} ${x+w-10},${y+22} ${x+w-10},${y+H-20} ${x+w-22},${y+H-10} ${x+22},${y+H-10} ${x+10},${y+H-20} ${x+10},${y+22}`,fill:'#cfd2d4'}));
+  p.appendChild(el('rect',{x:cx-2*sp-13,y:y-14,width:5*sp,height:24,rx:3,fill:'#2fa34a',stroke:'#0a5a24'}));
+  names.forEach((n,k)=>{const px=cx+(k-2)*sp,on=used.includes(n);X[n]=px;
+    p.appendChild(el('rect',{x:px-9,y:y-11,width:18,height:18,rx:2,fill:'#1d7a37'}));
+    p.appendChild(el('circle',{cx:px,cy:y-2,r:6.5,fill:on?O:'#bfc5c9',stroke:on?'#000':'none','stroke-width':1.5}));
+    if(!on)p.appendChild(el('path',{d:`M${px-4},${y-2}H${px+4}`,stroke:'#666','stroke-width':2}));
+    T(p,px,y+28,n,{'text-anchor':'middle',fill:on?'#000':'#777','font-size':n==='COM'||n==='+12'?10:11,'font-weight':900});});
+  T(p,cx,y+52,out,{'text-anchor':'middle',fill:'#333','font-size':14,'font-weight':900});
+  T(p,cx,y+72,'PLACA EXP1',{'text-anchor':'middle',fill:'#2b7bb9','font-size':13,'font-weight':900});
+  return X;
+}
 function wbox(p,x,y,w,h,t1,t2,o={}){
   p.appendChild(el('rect',{x,y,width:w,height:h,rx:12,fill:'#141414',stroke:o.hot?O:'#3a3a3a','stroke-width':o.hot?2.5:1.5,'stroke-dasharray':o.dash?'7 6':'none'}));
   const ty=o.top?y+26:y+h/2-4;
@@ -663,10 +688,11 @@ function wireDoor(s,o){
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
   const r=G(s,'ret'); wire(r,'M170,46 H200 V20 H272 V40','#8a8a8a',3);
   T(r,300,24,'− directo a la fuente',{fill:'#8a8a8a','font-size':13});
+  const lx=G(s,alt?'loop':'loopX');
+  wire(lx,'M55,94 V120 H180 V160 H162',O,5,'flow');
+  if(!alt) wire(lx,'M162,210 H200 V150 H375 V176',O,5,'flow');
   const lp=G(s,'loop');
-  wire(lp,'M55,94 V120 H180 V160 H162',O,5,'flow');
-  if(!alt) wire(lp,'M162,210 H200 V245 H290',O,5,'flow');
-  wire(lp,`M290,${alt?350:220} H245 V74`,O,5,'flow');
+  wire(lp,alt?'M401,306 V270 H245 V74':'M401,176 V140 H245 V74',O,5,'flow');
   const pg=G(s,'psu'); wbox(pg,20,30,150,64,'FUENTE 12 V','solo electroimán');
   T(pg,64,112,'+',{fill:O,'font-size':16,'font-weight':900});T(pg,178,40,'−',{fill:'#bbb','font-size':16,'font-weight':900});
   const mg=G(s,'mag'); drawMag(mg,230,40,230,245,272);
@@ -679,50 +705,48 @@ function wireDoor(s,o){
     const rg=G(s,'rec'); const [sx,sy]=drawPRO(rg,30,272);
     wire(rg,`M${sx+18},${sy-10} H205 V210 H162`,'#f2f2f2',4);
     wire(rg,`M${sx+18},${sy} H170`,'#e53935',4); cap(rg,170,sy);
-    wire(rg,`M${sx+18},${sy+10} H230 V375 H290`,'#fdd835',4);
+    wire(rg,`M${sx+18},${sy+10} H230 V285 H375 V306`,'#fdd835',4);
     T(rg,95,374,'BOTÓN RECEPCIÓN',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
     T(rg,95,392,'PRO800B · cable largo',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
   }
-  const bg=G(s,'board'); const by=alt?300:170;
-  wbox(bg,290,by,170,100,'PLACA EXP1','OUTPUT 1',{top:true});
-  [['NC',by+50],['COM',by+75]].forEach(([l,yy])=>{bg.appendChild(el('circle',{cx:290,cy:yy,r:5,fill:O}));T(bg,300,yy+5,l,{fill:'#fff','font-size':14,'font-weight':900});});
-  const ny=alt?440:300,c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
+  const bg=G(s,'board'); drawOut(bg,290,alt?308:178,170,'OUTPUT 1',['COM','NC']);
+  const ny=alt?440:308,c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
   T(s,240,ny,'Todo en serie: si cualquier contacto se abre,',c);
   T(s,240,ny+22,'la puerta se libera.',c);
   if(alt)T(s,240,ny+50,'Sin temporizador: libera solo mientras se presiona.',Object.assign({},c,{fill:O}));
 }
 function wireTurn(s,o){
-  const H=630;s.setAttribute('viewBox',`0 0 480 ${H}`);
+  const E=o.alt?470:400,H=E+192;s.setAttribute('viewBox',`0 0 480 ${H}`);
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
   const WH='#f2f2f2';
   const dot=(p,x,y,c)=>p.appendChild(el('circle',{cx:x,cy:y,r:5,fill:c}));
-  const bw=G(s,'boardw'); wire(bw,'M190,160 H295',WH,4); wire(bw,'M190,195 H295',O,5,'flow');
-  const ew=G(s,'exitw'); wire(ew,'M154,460 H295',WH,4); wire(ew,'M154,495 H295',O,5,'flow');
+  const bw=G(s,'boardw'); wire(bw,'M105,232 V195 H295',WH,4); wire(bw,'M79,232 V160 H295',O,5,'flow');
+  const ew=G(s,'exitw'); wire(ew,`M154,${E+30} H295`,WH,4); wire(ew,`M154,${E+65} H295`,O,5,'flow');
   const t=G(s,'turn');
-  t.appendChild(el('rect',{x:280,y:40,width:180,height:500,rx:14,fill:'none',stroke:'#5a5a5a','stroke-width':2,'stroke-dasharray':'7 6'}));
+  t.appendChild(el('rect',{x:280,y:40,width:180,height:E+72,rx:14,fill:'none',stroke:'#5a5a5a','stroke-width':2,'stroke-dasharray':'7 6'}));
   T(t,370,64,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
   T(t,370,84,'TORNIQUETE',{'text-anchor':'middle',fill:'#fff','font-size':15,'font-weight':900});
   const term=(p,x,y,w,h,title,rows,side)=>{wbox(p,x,y,w,h,title,'',{hot:true,top:true});rows.forEach(([lbl,ry,c])=>{const ex=side==='left'?x:x+w;dot(p,ex,ry,c);T(p,side==='left'?x+14:x+w-14,ry+5,lbl,{'text-anchor':side==='left'?'start':'end',fill:'#D6D6D6','font-size':14,'font-weight':700});});};
-  term(t,295,100,150,120,'ENTRADA',[['común',160,WH],['apertura',195,O]],'left');
-  term(t,295,400,150,120,'SALIDA',[['común',460,WH],['apertura',495,O]],'left');
-  const bg=G(s,'board'); term(bg,20,100,170,120,'PLACA EXP1',[['COM',160,WH],['NO',195,O]],'right'); T(bg,105,145,o.out,{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  term(t,295,100,150,120,'ENTRADA',[['apertura',160,O],['común',195,WH]],'left');
+  term(t,295,E-30,150,120,'SALIDA',[['común',E+30,WH],['apertura',E+65,O]],'left');
+  const bg=G(s,'board'); drawOut(bg,20,234,170,o.out,['NO','COM']);
   if(o.alt){
-    const rg=G(s,'rec'); const [sx,sy]=drawPRO(rg,20,250);
-    wire(rg,`M${sx+18},${sy-10} H250 V203 A8,8 0 0 0 250,187 V160`,WH,4); dot(rg,250,160,WH);
-    wire(rg,`M${sx+18},${sy+2} H270 V195`,'#e53935',4); dot(rg,270,195,'#e53935');
+    const rg=G(s,'rec'); const [sx,sy]=drawPRO(rg,20,340);
+    wire(rg,`M${sx+18},${sy-10} H250 V195`,WH,4); dot(rg,250,195,WH);
+    wire(rg,`M${sx+18},${sy+2} H270 V203 A8,8 0 0 0 270,187 V160`,'#e53935',4); dot(rg,270,160,'#e53935');
     wire(rg,`M${sx+18},${sy+14} H160`,'#fdd835',4); cap(rg,160,sy+14);
-    T(rg,85,350,'BOTÓN RECEPCIÓN',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
-    T(rg,85,368,'PRO800B · amarillo aislado',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+    T(rg,85,438,'BOTÓN RECEPCIÓN',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
+    T(rg,85,456,'PRO800B · amarillo aislado',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
   }
-  const eg=G(s,'exit'); drawExit(eg,20,430,86,112,[['C',460,true],['NO',495,true],['NC',528,false]]);
-  T(eg,63,560,'BOTÓN SALIDA',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
-  T(eg,63,578,'interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
+  const eg=G(s,'exit'); drawExit(eg,20,E,86,112,[['C',E+30,true],['NO',E+65,true],['NC',E+98,false]]);
+  T(eg,63,E+130,'BOTÓN SALIDA',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
+  T(eg,63,E+148,'interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
   const c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
   const n=o.alt?'Dos cables en cada borne de ENTRADA: placa y botón.':'El botón de salida va directo: no pasa por la placa.';
-  T(s,240,612,n,c);
+  T(s,240,E+178,n,c);
 }
 function wireCombo(s,o){
-  const H=720,WH='#f2f2f2',GR='#8a8a8a';s.setAttribute('viewBox',`0 0 480 ${H}`);
+  const H=810,WH='#f2f2f2',GR='#8a8a8a';s.setAttribute('viewBox',`0 0 480 ${H}`);
   s.appendChild(el('rect',{x:0,y:0,width:480,height:H,fill:'#0b0b0b'}));
   const dot=(p,x,y,c)=>p.appendChild(el('circle',{cx:x,cy:y,r:5,fill:c}));
   const lab=(p,x,y,t,a='middle')=>T(p,x,y,t,{'text-anchor':a,fill:'#fff','font-size':12,'font-weight':900});
@@ -732,8 +756,8 @@ function wireCombo(s,o){
   const lp=G(s,'loop');
   wire(lp,'M55,94 V120 H185 V160 H162',O,5,'flow');
   wire(lp,'M162,210 H225 V300',O,5,'flow');
-  wire(lp,'M330,300 V270 H282 V215 H300',O,5,'flow');
-  wire(lp,'M300,190 H245 V74',O,5,'flow');
+  wire(lp,'M330,300 V265 H285 V150 H380 V171',O,5,'flow');
+  wire(lp,'M406,171 V140 H245 V74',O,5,'flow');
   const pg=G(s,'psu'); wbox(pg,20,30,150,64,'FUENTE 12 V','imán y relevador');
   T(pg,64,112,'+',{fill:O,'font-size':16,'font-weight':900});T(pg,178,40,'−',{fill:'#bbb','font-size':16,'font-weight':900});
   const mg=G(s,'mag'); drawMag(mg,230,40,230,245,272);
@@ -742,8 +766,7 @@ function wireCombo(s,o){
   const eg=G(s,'exit'); drawExit(eg,30,140,86,122,[['C',160,true],['NO',185,false],['NC',210,true]]);
   T(eg,73,246,'BOTÓN SALIDA',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
   T(eg,73,264,'puerta · interior',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13});
-  const b1=G(s,'board1'); wbox(b1,300,140,160,100,'PLACA EXP1','OUTPUT 1',{top:true});
-  [['NC',190],['COM',215]].forEach(([l,yy])=>{dot(b1,300,yy,O);T(b1,310,yy+5,l,{fill:'#fff','font-size':14,'font-weight':900});});
+  const b1=G(s,'board1'); drawOut(b1,300,173,160,'OUTPUT 1',['COM','NC']);
   // botón de recepción → bobina
   const cg=G(s,'coil');
   wire(cg,'M133,360 H172 V218 A8,8 0 0 0 172,202 V120',WH,4);dot(cg,172,120,WH);
@@ -762,20 +785,19 @@ function wireCombo(s,o){
   T(rl,308,378,'12 V · 2 contactos',{'text-anchor':'middle',fill:'#9A9A9A','font-size':13,'font-weight':700});
   // torniquete
   const rw=G(s,'rw');
-  wire(rw,'M260,430 V580',WH,4);dot(rw,260,580,WH);
-  wire(rw,'M300,430 V572 A8,8 0 0 1 300,588 V612',O,5,'flow');dot(rw,300,612,O);
-  const bw=G(s,'bw2'); wire(bw,'M190,580 H320',WH,4); wire(bw,'M190,612 H320',O,5,'flow');
+  wire(rw,'M260,430 V572 A8,8 0 0 1 260,588 V612',WH,4);dot(rw,260,612,WH);
+  wire(rw,'M300,430 V580',O,5,'flow');dot(rw,300,580,O);
+  const bw=G(s,'bw2'); wire(bw,'M105,636 V612 H320',WH,4); wire(bw,'M79,636 V580 H320',O,5,'flow');
   const t=G(s,'turn');
   t.appendChild(el('rect',{x:300,y:470,width:165,height:180,rx:14,fill:'none',stroke:'#5a5a5a','stroke-width':2,'stroke-dasharray':'7 6'}));
   T(t,382,494,'TARJETA DEL',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
   T(t,382,512,'TORNIQUETE',{'text-anchor':'middle',fill:'#fff','font-size':14,'font-weight':900});
   wbox(t,320,528,135,110,'ENTRADA','',{hot:true,top:true});
-  [['común',580,WH],['apertura',612,O]].forEach(([l,yy,c])=>{dot(t,320,yy,c);T(t,334,yy+5,l,{fill:'#D6D6D6','font-size':14,'font-weight':700});});
-  const b2=G(s,'board2'); wbox(b2,20,528,170,110,'PLACA EXP1','OUTPUT 2',{top:true});
-  [['COM',580,WH],['NO',612,O]].forEach(([l,yy,c])=>{dot(b2,190,yy,c);T(b2,176,yy+5,l,{'text-anchor':'end',fill:'#fff','font-size':14,'font-weight':900});});
+  [['apertura',580,O],['común',612,WH]].forEach(([l,yy,c])=>{dot(t,320,yy,c);T(t,334,yy+5,l,{fill:'#D6D6D6','font-size':14,'font-weight':700});});
+  const b2=G(s,'board2'); drawOut(b2,20,638,170,'OUTPUT 2',['NO','COM']);
   const c={'text-anchor':'middle',fill:'#D6D6D6','font-size':15,'font-weight':700};
-  T(s,240,680,'Salida del torniquete: directo a su tarjeta, como siempre.',c);
-  T(s,240,704,'Sin temporizador: libera mientras se presiona.',Object.assign({},c,{fill:O}));
+  T(s,240,772,'Salida del torniquete: directo a su tarjeta, como siempre.',c);
+  T(s,240,796,'Sin temporizador: libera mientras se presiona.',Object.assign({},c,{fill:O}));
 }
 
 /* ---------- STEPS ---------- */
@@ -784,8 +806,8 @@ const S_exp={v:'zoom',z:'exp',t:'Une placa y lector',d:'Conecta el <b>cable EXP<
 const S_power={v:'zoom',z:'power',t:'Da energía a la placa',d:'Borne <b>POWER</b>: +12V In y 0V. Usa su propia fuente de 12 V.',o:'El lector no alimenta la placa.'};
 const S_net={v:'scene',hl:['net','sw','reader'],t:'Conecta el cable de red',d:'Al final. El cable de red (PoE) le da datos y energía al lector.',o:['La red debe dar IP automática (DHCP).','Sin firewall ni filtro que bloquee la nube de Dot Origin.','Espera: luz roja unos segundos → azul fijo.'],led:true};
 const S_rec=extra=>({v:'zoom',z:'in',t:'Conecta el botón de recepción',d:'Botón PRO800B al borne <b>INPUT</b>: rojo (NO) → <b>DI</b>, blanco (C) → <b>0V</b>.',o:['El amarillo (NC) se aísla.',extra,'Instálalo bajo el mostrador, fuera del alcance de socios.']});
-const S_doorRelay=(t)=>({v:'zoom',z:'door',t,d:'<b>COM</b> → + de la fuente del imán, pasando por el botón de salida. <b>NC</b> → <b>V+</b> del electroimán.',o:['NC, no NO: la puerta queda cerrada en reposo.','En la chapa usa solo V+ y V−. NC · COM · NO son del sensor.','Sin diodo soldado en la tablilla de la chapa: pon un 1N4007 en V+ y V−, franja al V+.','Temporizador de la chapa en 0 SEC.']});
-const S_doorExit=(t)=>({v:'wire',w:{type:'door'},t,d:'Va <b>directo</b> en el cable que llega a <b>V+</b> del electroimán, entre la fuente y COM. Usa los bornes <b>C</b> y <b>NC</b> del botón.',o:'No va a la placa: así siempre se puede salir, aunque falle la red.'});
+const S_doorRelay=(t)=>({v:'zoom',z:'door',t,d:'Fuente <b>+</b> → <b>COM</b>. <b>NC</b> → <b>V+</b> del electroimán. <b>V−</b> → <b>−</b> de la fuente. En el siguiente paso metes el botón de salida en el cable de la fuente.',o:['NC, no NO: la puerta queda cerrada en reposo.','En la chapa usa solo V+ y V−. NC · COM · NO son del sensor.','Sin diodo soldado en la tablilla de la chapa: pon un 1N4007 en V+ y V−, franja al V+.','Temporizador de la chapa en 0 SEC.']});
+const S_doorExit=(t)=>({v:'wire',w:{type:'door'},hl:['exit','loopX','psu','board'],t,d:'Corta el cable que va de la fuente <b>+</b> a <b>COM</b> y mete el botón ahí: fuente + → <b>C</b> del botón; <b>NC</b> del botón → <b>COM</b>.',o:'No va a la placa: así siempre se puede salir, aunque falle la red.'});
 const S_turnExit=(t,out)=>({v:'wire',w:{type:'turn',out},hl:['exit','exitw','turn'],t,d:'Bornes <b>C</b> y <b>NO</b> del botón a la entrada de <b>SALIDA</b> de la tarjeta del torniquete.',o:'Va directo: no pasa por la placa.'});
 const ALT_WHEN={t:'Cuándo usar esta opción',d:'Solo si Dot Origin no puede configurar la entrada DI. Los botones de recepción no llegan a la placa.',o:['Sin horario ni registro de aperturas.','Lector, placa, red y NGA: igual que en «2 lectores».']};
 const ALT_WHEN_C={t:'Cuándo usar esta opción',d:'Solo si Dot Origin no puede configurar la entrada DI. Un relevador hace que <b>un solo botón</b> libere puerta y torniquete.',o:['Sin horario ni registro de aperturas.','Lector, placa, red y NGA: igual que en «1 lector».']};
@@ -796,8 +818,8 @@ const STEPS={
   {v:'scene',hl:['reader','door'],t:'Monta el lector',d:'En el <b>exterior</b> (lado de socios), <b>junto al marco</b> de la puerta, en <b>vertical</b>.',o:'Para pared: gira placa y tapa 180° con la ventana de luz arriba.'},
   {v:'scene',hl:['board','psuL','psuB','zone'],t:'Monta placa y fuentes',d:'En el interior. La placa se fija con sus <b>2 tornillos</b>.',o:'Todo se monta y se conecta sin energía.'},
   S_exp,
-  S_doorRelay('Conecta el electroimán'),
-  S_doorExit('Conecta el botón de salida'),
+  S_doorRelay('Conecta fuente, placa e imán'),
+  S_doorExit('Intercala el botón de salida'),
   S_rec('Dot Origin configura que DI active OUTPUT 1. Pruébalo al final.'),
   S_power,S_net,
   {v:'nga',t:'Da de alta en NGA',d:'En <b>NGA › Lectores › Nuevo lector</b>.',name:'Hidalgo - Puerta',turn:false},
@@ -820,9 +842,9 @@ const STEPS={
   {v:'scene',hl:['reader','door'],t:'Monta el lector',d:'En el <b>exterior</b>, <b>junto al marco</b> de la puerta, en <b>vertical</b>.',o:'Para pared: gira placa y tapa 180° con la ventana de luz arriba.'},
   {v:'scene',hl:['board','psuL','psuB','zone'],t:'Monta placa y fuentes',d:'En el interior. La placa se fija con sus <b>2 tornillos</b>.',o:'Todo se monta y se conecta sin energía.'},
   S_exp,
-  S_doorRelay('Puerta: OUTPUT 1'),
+  S_doorRelay('Puerta: fuente, placa e imán'),
+  S_doorExit('Puerta: intercala el botón de salida'),
   {v:'zoom',z:'turn2',t:'Torniquete: OUTPUT 2',d:'<b>COM</b> → común. <b>NO</b> → entrada de apertura de <b>ENTRADA</b>.',o:['Usa OUTPUT 2: no empalmes OUTPUT 1.','Cada salida tiene su propio tiempo de apertura.']},
-  S_doorExit('Botón de salida de la puerta'),
   S_turnExit('Botón de salida del torniquete','OUTPUT 2'),
   S_rec('Dot Origin configura que DI active OUTPUT 1 y OUTPUT 2: un solo botón libera la entrada de puerta y torniquete.'),
   S_power,S_net,
@@ -930,12 +952,12 @@ const clear=()=>{timers.forEach(clearTimeout);timers=[];};
 const applyHL=(root,hl)=>root.querySelectorAll('[data-k]').forEach(g=>g.setAttribute('class',!hl||hl.includes(g.dataset.k)?'hl':'dim'));
 function ngaView(s){
   const tname=s.combo?'Puerta y torniquete':(s.turn?'Torniquete':'Puerta');
-  return `<div class="nga"><div class="form"><div class="path">NGA › Lectores › <b>Nuevo lector</b></div><h4>Nuevo Lector</h4><div class="s">Administra los lectores NFC de tus clientes.</div>
-  <div class="fl">Número de Serie</div><div class="fi k">AJ00217…</div>
-  <div class="fl">Nombre</div><div class="fi k">${s.name}</div>
+  return `<div class="nga"><div class="form"><div class="path">NGA › Lectores › <b>Nuevo lector</b></div><h4>Nuevo Lector <span class="ej">Ejemplo</span></h4><div class="s">Administra los lectores NFC de tus clientes.</div>
+  <div class="fl"><span class="n">1</span>Número de Serie</div><div class="fi k">AJ0021734</div><div class="fh">Del lector. Empieza con <b>AJ</b>.</div>
+  <div class="fl"><span class="n">2</span>Nombre</div><div class="fi k">${s.name}</div><div class="fh">«Sucursal - ${tname}».</div>
   <div class="fl">Tiempo de espera entre escaneos <i>(opcional)</i></div><div class="fi x">vacío = valor de la cuenta</div>
-  <div class="fl">Sucursal (ID EVO)</div><div class="fi k">ID de la sucursal</div>
-  <div class="fl">Torniquete (ID EVO) <i>(opcional)</i></div><div class="fi ${s.turn?'k':'x'}">${s.turn?'ID del torniquete':'vacío en puerta'}</div></div>
+  <div class="fl"><span class="n">3</span>Sucursal (ID EVO)</div><div class="fi k">123</div><div class="fh">ID de la sucursal en EVO.</div>
+  <div class="fl"><span class="n">4</span>Torniquete (ID EVO) <i>(opcional)</i></div><div class="fi ${s.turn?'k':'x'}">${s.turn?'45':'vacío en puerta'}</div><div class="fh">${s.turn?'ID del torniquete en EVO.':'Déjalo vacío en el lector de puerta.'}</div></div>
   <div class="ngaside"><div class="t">Llena 4 datos</div><ol>
    <li><span class="n">1</span><span><strong>Número de serie</strong> del lector. Empieza con <strong style="color:var(--o)">AJ</strong>.</span></li>
    <li><span class="n">2</span><span><strong>Nombre:</strong> «Sucursal - ${tname}».</span></li>
@@ -951,7 +973,7 @@ function render(){
   if(window.__navReady&&(wasC||i>0))window.scrollTo(0,0);
   const wb=$('wire');if(wb.dataset.base){wb.setAttribute('viewBox',wb.dataset.base);delete wb.dataset.base;}
   ['scene','zoom','nga','wire','list'].forEach(v=>$(v).classList.toggle('on',v===s.v));
-  $('kitwrap').style.display=i===0?'block':'none';
+  $('kitwrap').style.display=i===0?'block':'none';if(i===0)renderKit();
   $('ztag').classList.toggle('on',s.v==='zoom');
   $('bn').textContent=i+1;$('st').textContent=s.t;$('sd').innerHTML=s.d;
   const OJ=s.o?(Array.isArray(s.o)?s.o:[s.o]):[];
@@ -1020,7 +1042,7 @@ document.querySelectorAll('[data-sub]').forEach(b=>b.onclick=()=>{sub=b.dataset.
 $('prev').onclick=()=>{if(i>0){i--;render();}};
 $('next').onclick=()=>{i=i<STEPS[key()].length-1?i+1:0;render();};
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('next').click();if(e.key==='ArrowLeft')$('prev').click();});
-setSec('two');window.__navReady=true;
+window.__boot=()=>{setSec('two');window.__navReady=true;};
 MQ.addEventListener('change',e=>{MOB=e.matches;render();});
 (function(){let x0=null;const v=document.querySelector('.view');
  v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
@@ -1036,6 +1058,22 @@ document.addEventListener('click',e=>{if(!e.target.closest('.msel'))$('menu').hi
 $('fullBtn').onclick=()=>{const v=document.querySelector('.view .layer.on');FULL=!FULL;v.setAttribute('viewBox',FULL?v.dataset.base:v.dataset.crop);setFB();};
 let lastW=innerWidth;window.addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(window.__rz);window.__rz=setTimeout(()=>{if(MOB&&i>0)render();},250);});
 /* ---------- KIT ---------- */
+const KIT={
+ two_door:['lector','placa','red','fuente','iman','salidaP','pro','diodo'],
+ two_turn:['lector','placa','red','fuente','torn','salidaT','pro'],
+ combo:['lector','placa','red','fuente','iman','torn','salidaPT','pro','diodo'],
+ alt_door:['lector','placa','red','fuente','iman','salidaP','pro','cable','diodo'],
+ alt_turn:['lector','placa','red','fuente','torn','salidaT','pro','cable'],
+ alt_combo:['lector','placa','red','fuente','iman','torn','salidaPT','pro','cable','relay','diodo']
+};
+const exitIco=s=>{s.appendChild(el('rect',{x:52,y:12,width:66,height:66,rx:8,fill:'#cfd2d4'}));s.appendChild(el('circle',{cx:85,cy:45,r:22,fill:'#2fa34a',stroke:'#1d7a37','stroke-width':3}));};
+const kitX={
+ salidaP:['Botón de salida','puerta · C, NO, NC',exitIco],
+ salidaT:['Botón de salida','torniquete · C, NO',exitIco],
+ salidaPT:['2 botones de salida','puerta y torniquete',exitIco],
+ cable:['Cable a recepción','del botón a la placa o imán',s=>{s.appendChild(el('path',{d:'M12,62 C50,10 100,80 148,28',stroke:'#f2f2f2','stroke-width':5,fill:'none'}));s.appendChild(el('path',{d:'M12,70 C50,18 100,88 148,36',stroke:'#e53935','stroke-width':5,fill:'none'}));}],
+ relay:['Relevador 12 V','2 contactos (DPDT)',s=>{s.appendChild(el('rect',{x:40,y:14,width:80,height:62,rx:8,fill:'#141414',stroke:O,'stroke-width':3}));[[56,14],[104,14],[56,76],[104,76]].forEach(([x,y])=>s.appendChild(el('circle',{cx:x,cy:y,r:6,fill:O})));}]
+};
 const kit=[
  ['Lector VTAP','VTAP100 PRO PoE',s=>reader(s,57,4,1)],
  ['Placa EXP1','con cable EXP',s=>board(s,20,8,1)],
@@ -1046,10 +1084,14 @@ const kit=[
  ['Botón PRO800B','recepción · C, NO, NC',s=>{s.appendChild(el('rect',{x:40,y:10,width:80,height:70,rx:6,fill:'#cfd2d4'}));s.appendChild(el('circle',{cx:80,cy:45,r:20,fill:'#1d1d1d',stroke:'#888','stroke-width':2}));[['#f2f2f2',0],['#e53935',8],['#fdd835',16]].forEach(([c,d])=>s.appendChild(el('path',{d:`M120,${36+d} H150`,stroke:c,'stroke-width':4})));}],
  ['Diodo 1N4007','solo si la chapa no lo trae',s=>{s.appendChild(el('path',{d:'M15,45 H145',stroke:'#bbb','stroke-width':3}));s.appendChild(el('rect',{x:55,y:33,width:50,height:24,rx:5,fill:'#1d1d1d'}));s.appendChild(el('rect',{x:93,y:33,width:7,height:24,fill:'#cfcfcf'}));}]
 ];
-$('kit').innerHTML=kit.map((k,n)=>`<div class="kc"><svg viewBox="0 0 160 90" id="k${n}"></svg><b>${k[0]}</b><span>${k[1]}</span></div>`).join('');
-kit.forEach((k,n)=>k[2]($('k'+n)));
-$('kitside').innerHTML='<div class="kt">Lo que necesitas</div>'+kit.map((k,n)=>`<div class="ks"><svg viewBox="0 0 160 90" id="ks${n}"></svg><div><b>${k[0]}</b><span>${k[1]}</span></div></div>`).join('');
-kit.forEach((k,n)=>k[2]($('ks'+n)));
+const KN=['lector','placa','red','fuente','iman','torn','pro','diodo'];
+const kitOf=k=>KIT[k].map(id=>kitX[id]||kit[KN.indexOf(id)]);
+let kitKey='';
+function renderKit(){const k=key();if(k===kitKey)return;kitKey=k;const L=kitOf(k);
+  $('kit').innerHTML=L.map((q,n)=>`<div class="kc"><svg viewBox="0 0 160 90" id="k${n}"></svg><b>${q[0]}</b><span>${q[1]}</span></div>`).join('');
+  $('kitside').innerHTML='<div class="kt">Lo que necesitas</div>'+L.map((q,n)=>`<div class="ks"><svg viewBox="0 0 160 90" id="ks${n}"></svg><div><b>${q[0]}</b><span>${q[1]}</span></div></div>`).join('');
+  L.forEach((q,n)=>{q[2]($('k'+n));q[2]($('ks'+n));});}
+window.__boot();
 })();
 </script>
 </body>
