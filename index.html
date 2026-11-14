@@ -36,13 +36,54 @@ h1 span{color:var(--o)}
 .cr .ca{color:var(--o);font-weight:900;font-size:22px}
 .cr .cx{grid-column:2/-1;color:var(--o);font-size:15px;font-weight:700;margin-top:-4px}
 .swc{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:middle;margin:0 2px 2px 4px;border:1px solid #555}
-body.compact .top,body.compact #lead,body.compact .band,body.compact .secnote{display:none}
-body.compact:not(.last) .foot{display:none}
+body.compact .band{display:none}
+body.compact.first .band{display:block}
+body.compact:not(.last):not(.first) .foot{display:none}
 .bar{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;margin-bottom:12px}
 .bar .switch,.bar .subswitch{margin:0}
 .barlogo{display:none;margin-left:auto;width:150px}
 @media (min-width:701px){body.compact .barlogo{display:block}}
 .msel,.kitside,.fullbtn,.ojomore,.mo{display:none}
+.msel,.top,#lead,.bar,.secnote{display:none!important}
+.home{display:none;padding:6px 0 4px}
+body.athome .home{display:block}
+body.athome .rbar,body.athome #kitwrap,body.athome .stage,body.athome .band{display:none!important}
+.hhead{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 0 22px}
+.hhead .eyebrow{margin:0}
+.hlogo{width:240px;flex:none}
+.routes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.rc{display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:100%;text-align:left;font:inherit;color:#fff;background:var(--card);border:2px solid var(--o);border-radius:20px;padding:20px;cursor:pointer;transition:background .15s}
+.rc:hover,.rc:focus-visible{background:#1d1d1d;outline:none}
+.rci{width:60px;height:60px;border-radius:16px;background:var(--o);display:grid;place-items:center;flex:none}
+.rci svg{width:34px;height:34px;stroke:#000}
+.rtx{display:block;min-width:0}
+.rt{display:block;font-size:26px;font-weight:900;text-transform:uppercase;line-height:1.02;font-stretch:115%}
+.rs{display:block;font-size:16px;color:var(--g3);margin-top:6px}
+.rn{display:block;color:var(--o);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.rar{display:none}
+.rgo{margin-top:auto;align-self:stretch;text-align:center;background:var(--o);color:#000;border-radius:999px;padding:10px;font-weight:900;text-transform:uppercase;font-size:15px;letter-spacing:.04em}
+.rc.alt{border:2px dashed #555}
+.rc.alt .rci{background:#2a2a2a}.rc.alt .rci svg{stroke:var(--o)}
+.rc.alt .rgo{background:transparent;color:var(--o);border:2px solid var(--o)}
+.altbtn{display:flex;align-items:center;gap:14px;width:100%;margin:18px 0 0;font:inherit;text-align:left;color:#C9C9C9;background:transparent;border:2px dashed #444;border-radius:18px;padding:12px 18px;cursor:pointer}
+.altbtn b{display:block;font-size:16px;font-weight:900;text-transform:uppercase;color:#ddd}
+.altbtn small{display:block;font-size:14px;color:var(--g3);margin-top:2px}
+.altbtn i{margin-left:auto;font-style:normal;color:var(--o);font-size:18px}
+.altic{width:40px;height:40px;border-radius:12px;background:#222;display:grid;place-items:center;flex:none}
+.altic svg{width:22px;height:22px;stroke:#999}
+.altr{margin-top:14px}
+.routes[hidden]{display:none}
+.rbar{display:flex;align-items:center;gap:14px;margin:0 0 12px}
+.hbtn{font:inherit;font-weight:900;text-transform:uppercase;font-size:14px;letter-spacing:.04em;background:transparent;color:#fff;border:2px solid #444;border-radius:999px;padding:9px 16px;cursor:pointer;flex:none}
+.hbtn:hover{border-color:var(--o)}
+.hbtn b{color:var(--o)}
+.rlab{display:flex;align-items:center;gap:10px;min-width:0}
+.ric{width:42px;height:42px;border-radius:12px;background:var(--o);display:grid;place-items:center;flex:none}
+.ric svg{width:26px;height:26px;stroke:#000}
+.rtxt{min-width:0}
+.rtxt small{display:block;color:var(--o);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.rtxt b{display:block;font-size:20px;font-weight:900;text-transform:uppercase;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rlogo{margin-left:auto;width:150px;flex:none}
 .stage{margin-top:22px}
 body.compact .page{padding-top:16px}
 /* stage */
@@ -132,7 +173,7 @@ h2 span{color:var(--o)}
  .sd{font-size:19px}
  .ojo{display:flex;border-radius:14px;align-items:flex-start;padding:8px 14px;font-size:16px;margin:12px 0 0}
  .kitside{padding:4px 24px 16px;gap:8px;grid-template-columns:1fr 1fr;align-content:start;overflow:auto;min-height:0}
- body:not(.compact) .kitside{display:grid}
+ body.first .kitside{display:grid}
  .kitside .kt{grid-column:1/-1;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:15px;margin:2px 0 2px}
  .ks{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:6px 8px;min-width:0}
  .ks svg{width:50px;height:30px;flex:none}
@@ -146,7 +187,7 @@ h2 span{color:var(--o)}
  .panel .dots{gap:3px}
  .panel .arrow{white-space:nowrap;padding:12px 16px;font-size:15px}
  .panel .dot{width:26px;height:26px;font-size:13px;padding:0}
- body:not(.compact) .panel{max-height:none}
+ body.first .panel{max-height:none}
  body.compact.last{--vh:calc(100vh - 158px)}
  .foot{margin-top:0;padding:14px 0 16px;font-size:16px;border-top:0}
  .foot br{display:none}
@@ -211,6 +252,28 @@ h2 span{color:var(--o)}
  .secnote{font-size:15px}
  .tbtn{flex:1;justify-content:center}
  .bar{display:block}
+ .hhead{flex-direction:column-reverse;align-items:flex-start;gap:12px;margin-bottom:16px}
+ .hlogo{width:180px}
+ .routes{grid-template-columns:1fr;gap:12px}
+ .rc{flex-direction:row;align-items:center;gap:14px;padding:14px;border-radius:16px}
+ .rci{width:52px;height:52px;border-radius:14px}
+ .rci svg{width:30px;height:30px}
+ .rt{font-size:19px}
+ .rs{font-size:14px;margin-top:4px}
+ .rgo{display:none}
+ .rar{display:grid;place-items:center;margin-left:auto;width:36px;height:36px;border-radius:50%;background:var(--o);color:#000;font-weight:900;font-size:18px;flex:none}
+ .rc.alt .rar{background:transparent;border:2px solid var(--o);color:var(--o)}
+ .altbtn{margin-top:14px;padding:10px 14px;gap:12px}
+ .altbtn b{font-size:14px}
+ .altbtn small{font-size:13px}
+ .rbar{gap:10px;margin-bottom:10px}
+ .hbtn{width:42px;height:42px;padding:0;display:grid;place-items:center;font-size:20px}
+ .hbtn span{display:none}
+ .ric{width:38px;height:38px;border-radius:10px}
+ .ric svg{width:22px;height:22px}
+ .rtxt small{font-size:11px}
+ .rtxt b{font-size:15px;white-space:normal;line-height:1.05}
+ .rlogo{width:100px}
  .bar .switch{margin-bottom:10px}
  .bar .subswitch{margin-bottom:10px}
  body.compact .page{padding-top:10px}
@@ -252,6 +315,21 @@ h2 span{color:var(--o)}
 </head>
 <body>
 <div class="page">
+<section class="home" id="home">
+ <div class="hhead"><div class="eyebrow">Instalación lector VTAP</div><img class="hlogo" alt="STATION" id="hlogo"></div>
+ <div class="routes">
+  <button class="rc" data-go="two" data-gs="door"><span class="rci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14M2 20h20M13 20V4l-7 2v14"/><path d="M10 12h.01"/></svg></span><span class="rtx"><span class="rt">Puerta</span><span class="rs">Lector propio · electroimán<span class="rn" data-k="two:door"></span></span></span><span class="rar">→</span><span class="rgo">Empezar →</span></button>
+  <button class="rc" data-go="two" data-gs="turn"><span class="rci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="2"/><path d="M12 9 5 5M12 9l7-4M12 9v8M6 21h12"/></svg></span><span class="rtx"><span class="rt">Torniquete</span><span class="rs">Lector propio · Auto SW1<span class="rn" data-k="two:turn"></span></span></span><span class="rar">→</span><span class="rgo">Empezar →</span></button>
+  <button class="rc" data-go="one" data-gs=""><span class="rci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V5l5-1v16"/><circle cx="16" cy="9" r="1.6"/><path d="M16 9l-3.5-2.5M16 9l3.5-2.5M16 9v7"/></svg></span><span class="rtx"><span class="rt">Puerta + torniquete</span><span class="rs">1 lector abre los dos<span class="rn" data-k="one:"></span></span></span><span class="rar">→</span><span class="rgo">Empezar →</span></button>
+ </div>
+ <button class="altbtn" id="altBtn" aria-expanded="false"><span class="altic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15l6-6M11 6l.5-.5a4 4 0 0 1 5.66 5.66L16.5 12M13 18l-.5.5a4 4 0 0 1-5.66-5.66L7.5 12M4 4l2 2M20 20l-2-2"/></svg></span><span><b>Alternativa: botones sin placa</b><small>Solo si Dot Origin no configura la entrada DI</small></span><i id="altCar">▾</i></button>
+ <div class="routes altr" id="altroutes" hidden>
+  <button class="rc alt" data-go="alt" data-gs="door"><span class="rci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14M2 20h20M13 20V4l-7 2v14"/><path d="M10 12h.01"/></svg></span><span class="rtx"><span class="rt">Puerta</span><span class="rs">Sin placa<span class="rn" data-k="alt:door"></span></span></span><span class="rar">→</span><span class="rgo">Empezar →</span></button>
+  <button class="rc alt" data-go="alt" data-gs="turn"><span class="rci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="2"/><path d="M12 9 5 5M12 9l7-4M12 9v8M6 21h12"/></svg></span><span class="rtx"><span class="rt">Torniquete</span><span class="rs">Sin placa<span class="rn" data-k="alt:turn"></span></span></span><span class="rar">→</span><span class="rgo">Empezar →</span></button>
+  <button class="rc alt" data-go="alt" data-gs="combo"><span class="rci"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V5l5-1v16"/><circle cx="16" cy="9" r="1.6"/><path d="M16 9l-3.5-2.5M16 9l3.5-2.5M16 9v7"/></svg></span><span class="rtx"><span class="rt">Puerta + torniquete</span><span class="rs">Sin placa · relevador<span class="rn" data-k="alt:combo"></span></span></span><span class="rar">→</span><span class="rgo">Empezar →</span></button>
+ </div>
+</section>
+<div class="rbar"><button class="hbtn" id="homeBtn" aria-label="Inicio"><b>←</b><span> Inicio</span></button><div class="rlab"><span class="ric" id="ric"></span><span class="rtxt"><small id="rsec"></small><b id="rname"></b></span></div><img class="rlogo" alt="STATION" id="rlogo"></div>
  <div class="msel"><button class="mbtn" id="mselBtn" aria-haspopup="true"><span id="mselTxt"></span> <b>▾</b></button><img class="mlogo" alt="STATION" id="minilogo"><div class="menu" id="menu" hidden></div></div>
  <div class="top">
   <div>
@@ -955,7 +1033,7 @@ function fitView(s){
   const fb=$('fullBtn');fb.classList.remove('on');
   ['scene','zoom','wire','list','nga'].forEach(v=>{$(v).style.maxHeight='';$(v).style.overflowY='';});
   if(!MOB||i===0)return;
-  const used=document.querySelector('.msel').offsetHeight+document.querySelector('.info').offsetHeight+document.querySelector('.nav').offsetHeight+$('foot').offsetHeight+($('foot').offsetHeight?28:0)+$('ztag').offsetHeight+($('ztag').offsetHeight?8:0)+34;
+  const used=document.querySelector('.rbar').offsetHeight+10+document.querySelector('.info').offsetHeight+document.querySelector('.nav').offsetHeight+$('foot').offsetHeight+($('foot').offsetHeight?28:0)+$('ztag').offsetHeight+($('ztag').offsetHeight?8:0)+34;
   const H=Math.round(Math.max(200,Math.min(innerHeight-used,innerHeight*.62)));
   if(s.v==='list'||s.v==='nga'){$(s.v).style.maxHeight=H+'px';$(s.v).style.overflowY='auto';return;}
   const svg=$(s.v),vb=svg.viewBox.baseVal,B={x:vb.x,y:vb.y,w:vb.width,h:vb.height};
@@ -1004,9 +1082,10 @@ function ngaView(s){
 function render(){
   clear();
   const S=STEPS[key()],s=S[i];
-  const wasC=document.body.classList.contains('compact');document.body.classList.toggle('compact',i>0);
-  document.body.classList.toggle('last',i===S.length-1);FULL=false;$('menu').hidden=true;
-  if(window.__navReady&&(wasC||i>0))window.scrollTo(0,0);
+  const HOME=document.body.classList.contains('athome');document.body.classList.toggle('compact',!HOME);
+  document.body.classList.toggle('first',!HOME&&i===0);document.body.classList.toggle('last',!HOME&&i===S.length-1);FULL=false;$('menu').hidden=true;
+  if(window.__navReady)window.scrollTo(0,0);
+  {const r=RT[key()];$('rsec').textContent=r[0];$('rname').textContent=r[1];$('ric').innerHTML=RICON[r[2]];}
   const wb=$('wire');if(wb.dataset.base){wb.setAttribute('viewBox',wb.dataset.base);delete wb.dataset.base;}
   ['scene','zoom','nga','wire','list'].forEach(v=>$(v).classList.toggle('on',v===s.v));
   $('kitwrap').style.display=i===0?'block':'none';if(i===0)renderKit();
@@ -1037,7 +1116,7 @@ function render(){
   $('dots').innerHTML=S.map((_,n)=>`<button class="dot ${n===i?'cur':n<i?'done':''}" data-k="${n}" aria-label="Paso ${n+1}">${n+1}</button>`).join('');
   $('dots').querySelectorAll('.dot').forEach(d=>d.onclick=()=>{i=+d.dataset.k;render();});
   $('prev').disabled=i===0;
-  $('next').textContent=i===S.length-1?(MOB?'↺ Inicio':'Volver a empezar ↺'):(MOB?'Sig. →':'Siguiente →');
+  $('next').textContent=i===S.length-1?(MOB?'↺ Inicio':'Volver al inicio ↺'):(MOB?'Sig. →':'Siguiente →');
   $('prev').textContent=MOB?'←':'← Atrás';
   fitView(s);
 }
@@ -1076,9 +1155,20 @@ document.querySelectorAll('[data-sec]').forEach(x=>x.setAttribute('aria-pressed'
 document.querySelectorAll('[data-sec]').forEach(b=>b.onclick=()=>setSec(b.dataset.sec));
 document.querySelectorAll('[data-sub]').forEach(b=>b.onclick=()=>{sub=b.dataset.sub;i=0;document.querySelectorAll('[data-sub]').forEach(x=>x.setAttribute('aria-pressed',x===b));render();});
 $('prev').onclick=()=>{if(i>0){i--;render();}};
-$('next').onclick=()=>{i=i<STEPS[key()].length-1?i+1:0;render();};
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('next').click();if(e.key==='ArrowLeft')$('prev').click();});
-window.__boot=()=>{setSec('two');window.__navReady=true;};
+$('next').onclick=()=>{if(i<STEPS[key()].length-1){i++;render();}else goHome();};
+document.addEventListener('keydown',e=>{if(document.body.classList.contains('athome'))return;if(e.key==='ArrowRight')$('next').click();if(e.key==='ArrowLeft')$('prev').click();});
+const RT={two_door:['Lector propio','Puerta','door'],two_turn:['Lector propio','Torniquete','turn'],combo:['1 lector','Puerta + torniquete','both'],alt_door:['Sin placa','Puerta','door'],alt_turn:['Sin placa','Torniquete','turn'],alt_combo:['Sin placa','Puerta + torniquete','both']};
+const RICON={door:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4h3a2 2 0 0 1 2 2v14M2 20h20M13 20V4l-7 2v14"/><path d="M10 12h.01"/></svg>',turn:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="2"/><path d="M12 9 5 5M12 9l7-4M12 9v8M6 21h12"/></svg>',both:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V5l5-1v16"/><circle cx="16" cy="9" r="1.6"/><path d="M16 9l-3.5-2.5M16 9l3.5-2.5M16 9v7"/></svg>'};
+function setHome(){document.body.classList.add('athome');document.body.classList.remove('compact','first','last');window.scrollTo(0,0);}
+function startRoute(v,b){document.body.classList.remove('athome');go(v,b||'');try{history.pushState({route:1},'');}catch(e){}}
+function goHome(){if(history.state&&history.state.route){history.back();}else setHome();}
+window.addEventListener('popstate',()=>setHome());
+document.querySelectorAll('.home .rc').forEach(b=>b.onclick=()=>startRoute(b.dataset.go,b.dataset.gs));
+document.querySelectorAll('.rn').forEach(s=>{const [v,b]=s.dataset.k.split(':');const k=v==='one'?'combo':v+'_'+b;s.textContent=STEPS[k].length+' pasos';});
+$('altBtn').onclick=()=>{const r=$('altroutes'),o=r.hidden;r.hidden=!o;$('altBtn').setAttribute('aria-expanded',o);$('altCar').textContent=o?'▴':'▾';};
+$('homeBtn').onclick=goHome;
+$('hlogo').src=$('rlogo').src=document.querySelector('.logo').src;
+window.__boot=()=>{setSec('two');window.__navReady=true;setHome();};
 MQ.addEventListener('change',e=>{MOB=e.matches;render();});
 (function(){let x0=null;const v=document.querySelector('.view');
  v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
@@ -1092,7 +1182,7 @@ $('mselBtn').onclick=e=>{e.stopPropagation();const mn=$('menu');mn.hidden=!mn.hi
 $('menu').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('menu').hidden=true;go(b.dataset.go,b.dataset.gs);});
 document.addEventListener('click',e=>{if(!e.target.closest('.msel'))$('menu').hidden=true;});
 $('fullBtn').onclick=()=>{const v=document.querySelector('.view .layer.on');FULL=!FULL;v.setAttribute('viewBox',FULL?v.dataset.base:v.dataset.crop);setFB();};
-let lastW=innerWidth;window.addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(window.__rz);window.__rz=setTimeout(()=>{if(MOB&&i>0)render();},250);});
+let lastW=innerWidth;window.addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(window.__rz);window.__rz=setTimeout(()=>{if(MOB&&i>0&&!document.body.classList.contains('athome'))render();},250);});
 /* ---------- KIT ---------- */
 const KIT={
  two_door:['lector','placa','red','fuente','iman','salidaP','pro','diodo'],
